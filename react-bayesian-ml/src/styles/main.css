@@ -1,0 +1,67 @@
+.pageMainLayout {
+    margin: 0 15%;
+    height: 100vh;
+    font-family: 'Roboto', sans-serif;
+}
+
+.title {
+    font-size: 96px;
+}
+
+.title span {
+    color: #FFD100
+}
+
+.pageHeadLayout {
+    padding: 2vh 5vh;
+    transition: 0.3s;
+}
+
+@media only screen and (max-width: 700px) {
+    .pageHeadLayout {
+        padding: 10vh 0vh 5vh;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    .title {
+        font-size: 64px;
+    }
+}
+
+.bayesMLMain {
+    margin: 0 5vh;
+}
+
+.bayesMLMain p {
+    padding: 10px 0px;
+}
+
+.bayesMLMain h1 {
+    padding-top: 30px;
+    font-size: 50px;
+}
+
+.bayesMLMain h2 {
+    font-size: 32px;
+    padding-top: 20px;
+}
+
+.bayesMLMain h3 {
+    font-size: 24px;
+    padding-top: 15px;
+}
+
+.bayesMLMain a {
+    color: #1b9aaa;
+    transition: all 0.2s;
+}
+
+.bayesMLMain a:hover {
+    color: #157885
+}
+
+/* There's a bug with the KaTeX module so it displays the HTML; this is just to hide it */
+.katex-html {
+    display: none;
+}
