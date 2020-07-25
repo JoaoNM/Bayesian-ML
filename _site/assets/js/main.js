@@ -3,7 +3,7 @@
 
 // Github links
 
-var github_repository = "http://github.com/mhtess/bdappl/";
+var github_repository = "https://github.com/JoaoNM/Bayesian-ML";
 
 function markdown_url(page_url) {
     return page_url.slice(0, -4) + "md";

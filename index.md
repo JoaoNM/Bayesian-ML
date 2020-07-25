@@ -156,6 +156,11 @@ Now we can compute everything. In this case, the likelihood is the probability t
 
 The prior must be $$1\over3$$ because there are three doors and the car could be behind any of them, so $$P\ (C) = {1\over3}$$
 
+Calculating the normalising factor directly in this example is a little bit complicated, but done manually it can be broken down to make it easier. We can break $$ P\ (D_2) $$ down into the following: 
+
+> $$ P\ (D_2) = P\ (D_2 \intersect C) +  $$
+
+
 ---
 ---
 ---
