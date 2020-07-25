@@ -9,7 +9,7 @@ probability is expressed as a degree of certainty that a particular event will t
 
 > "When we get new information, we should update our probabilities to take the new information into account. Bayesian methods tell us exactly how to do this."
 
-## Basic Notation & Terminology
+## Basic Notation and Terminology
 
 ### Notation
 
@@ -152,7 +152,7 @@ We should also establish priors:
 
 > $$C = {1\over3},\ G_1 = {1\over3},\ G_2 = {1\over3} $$
 
-Now we can compute everything. In this case, the likelihood is the probability that Monty will open the second door ($$D_2$$), *given that* we have picked the right door on our first try and the car is behind the door we chose (given $$C$$). This means both $$D_2$$ and $$D_3$$ will have goats, so Monty has an equal chance of picking either door; therefore the likelihood is 0.5.
+Now we can compute everything. In this case, the likelihood is the probability that Monty will open the second door ($$D_2$$), *given that* we have picked the right door on our first try and the car is behind the door we chose (given $$C$$). This means both $$D_2$$ and $$D_3$$ will have goats, so Monty has an equal chance of picking either door; therefore the likelihood is $$1\over2$$.
 
 The prior must be $$1\over3$$ because there are three doors and the car could be behind any of them, so $$P\ (C) = {1\over3}$$
 
@@ -172,6 +172,65 @@ Keeping in mind what was explained above, these can then be further broken down 
 
 > $$ P\ (D_2 \cap C_3) = P\ (D_2 \mid C_3) \times P\ (C_3) $$
 
+For the first expression, we know that $$P\ (D_2 \mid C)$$ is $$1\over2$$ because if we pick the first door and correctly guess that it has the car behind it, Monty may open either the second or third door because they will both have goats. We also know that $$P\ (C)$$ is $$1\over3$$ as it is one of our priors, therefore we are left with a final value of $$1\over6$$
+
+Taking a look at the second expression, we can deduce the value of $$P\ (D_2 \mid C_2)$$ by thinking about the situation: what is the chance Monty will open the second door if the car is behind the second door? 0, as Monty will never reveal the door with the car behind it. Therefore the value for the second expression is left at 0. 
+
+Looking at the third and last expression, we can deduce the value of $$P\ (D_2 \mid C_3)$$ will be 1 because if the car is behind the third door, and Monty must not reveal the car, and we've picked the first door, Monty has no choice but to open the second door to reveal a goat. This is multiplied by $$1\over3$$ which is the initial probability of the car being behind the third door. This leaves us with a final value of $$1\over3$$. 
+
+Now, adding all these values togehter, we find that: 
+
+> $$P (D_2) = {1\over2}$$
+
+We now have all the values we need, and can substitute everything into the formula: 
+
+> $$ P\ (C \mid D_2) = \\{\\{1\over2} \times {1\over3}\over{1\over2}} = {1\over3}$$
+
+> $$ P\ (\overline{C} \mid D_2) = 1 - {1\over3} = {2\over3} $$
+
+> $$ \therefore\ \ P\ (\overline{C} \mid D_2)\ \ >\ \ P\ (C \mid D_2) $$
+
+Seeing as this is the case, according to probability theory, switching doors is the best strategy. 
+
+## Naive Monte Carlo Approach 
+
+Monte Carlo [methods](https://en.wikipedia.org/wiki/Monte_Carlo_method) are a very large class of algorithms designed to deduce probability by relying on repeatedly random sampling and drawing a numerical result. This approach can be applied to our problem, where we run the Monte Carlo problem scenario numerous times, and always stick to one of the two strategies and then we can compare the number of wins to the losses. 
+
+~~~javascript
+// language: javascript
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * Math.floor(max));
+}
+
+const doors = [1, 2, 3];
+
+// keep track of how many times each strategy wins
+let switchWins, keepWins = 0;
+
+// run the scenario 1000 times, and always switch doors 
+for (let i = 0; i < 1000; i++) {
+    car = doors[getRandomInt(3)];
+    // getRandomInt(3) will return 0, 1 or 2
+    ourChoice = doors[getRandomInt(3)];
+    montyChoice = 
+}
+
+
+
+
+
+console.log(getRandomInt(3));
+// expected output: 0, 1 or 2
+
+console.log(getRandomInt(1));
+// expected output: 0
+
+console.log(Math.random());
+// expected output: a number between 0 and 1
+
+~~~
+
 
 
 ---
@@ -180,12 +239,13 @@ Keeping in mind what was explained above, these can then be further broken down 
 
 # Testing blocks
 
-~~~
+~~~javascript
 // bernoulli(0.6) // same as flip(0.6)
 viz(Bernoulli( { p: 0.6 } ) )
 ~~~
 
 ~~~javascript
+// language: javascript
 const helloWorld = "Helo wrld"
 console.log(helloWorld);
 ~~~

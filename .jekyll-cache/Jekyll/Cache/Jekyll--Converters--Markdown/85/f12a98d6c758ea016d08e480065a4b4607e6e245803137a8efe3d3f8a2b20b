@@ -1,79 +1,4 @@
-<!DOCTYPE html>
-<html>
-
-  <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bayesian Machine Learning</title>
-  <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
-  <link rel="stylesheet" href="/bdappl/assets/css/main.css">
-  <link rel="stylesheet" href="/bdappl/assets/css/code.css">
-  <!-- Katex Script -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;700;900&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=PT+Serif:ital@1&display=swap" rel="stylesheet">
-
-  <link rel="canonical" href="http://localhost:4000/bdappl/">
-  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script>
-  <script src="/bdappl/assets/js/parse-bibtex.js"></script>
-  <script src="/bdappl/assets/js/main.js"></script>
-
-  <script src="https://s3-us-west-2.amazonaws.com/cdn.webppl.org/webppl-editor-1.0.9.js"></script>
-  <link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/cdn.webppl.org/webppl-editor-1.0.9.css">
-
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async
-            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
-    </script>
-
-
-  <script src="https://s3-us-west-2.amazonaws.com/cdn.webppl.org/webppl-viz-0.7.11.js"></script>
-  <link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/cdn.webppl.org/webppl-viz-0.7.11.css">
-  <!-- <link rel="stylesheet" href="http://127.0.0.1:8888/home/wp/viz/demo/webppl-viz.css"> -->
-  <!-- <script src="http://127.0.0.1:8888/home/wp/viz/demo/webppl-viz.js"></script> -->
-
-  <script src="https://s3-us-west-2.amazonaws.com/cdn.webppl.org/webppl-v0.9.13.js"></script>
-</head>
-
-  <body>
-
-    <header class="site-header">
-  <a class="site-title">Bayesian <span>Machine Learning</span></a>
-</header>
-
-
-    <ul class="contents-wrapper">
-    <a href="#bayesian-probabilities-an-introduction">Bayesian Probabilities: An Introduction</a>
-    <ul>
-      <a href="#basic-notation-and-terminology">Basic Notation and Terminology</a>
-      <ul>
-        <a href="#notation">Notation</a>
-        <li><a href="#terminology">Terminology</a></li>
-      </ul>
-      <li><a href="#bayes-theorem">Bayes Theorem</a></li>
-      <ul>
-        <li><a href="#important-note">Important Note</a></li>
-        <li><a href="#putting-it-together">Putting It Togehter</a></li>
-      </ul>
-    </ul>
-    <li><a href="#the-monty-hall-problem">The Monty Hall Problem</a></li>
-    <ul>
-      <a href="#introduction">Introduction</a>
-      <li><a href="#manual-approach">Manual Approach</a></li>
-      <ul>
-        <li><a href="#modeling-the-problem">Modeling the Problem</a></li>
-        <li><a href="#applying-bayes-theorem">Applying Bayes Theorem</a></li>
-      </ul>
-      <li><a href="#naive-monte-carlo-approach">Naive Monte Carlo Approach</a></li>
-    </ul>
-    </ul>
-
-    <div class="page-content-wrapper">
-      <div class="page-content">
-        <h1 id="bayesian-probabilities-an-introduction">Bayesian Probabilities: An Introduction</h1>
+I"YS<h1 id="bayesian-probabilities-an-introduction">Bayesian Probabilities: An Introduction</h1>
 
 <p>Bayesian probability is a field within the larger field of <a href="https://en.wikipedia.org/wiki/Bayesian_statistics">Bayesian statistics</a> where 
 probability is expressed as a degree of certainty that a particular event will take place. The particular difference in Bayesian probability compared to <a href="https://en.wikipedia.org/wiki/Frequentist_probability">frequentist probability</a> (the more well known approach) is that when calculating probabilities with Bayesian models, we can update our probabilites when a particular event occurs. In more intuitive terms, when we have an event, and we want to calculate its probability, intuitively, we will try to factor in different variables that may affect the likelihood of that event happening; when one of these variables may change, our initial probability may also therefore change - Bayesian models help us do this mathematically. This is best put by some <a href="https://www.stat.auckland.ac.nz/~brewer/stats331.pdf">great lecture notes</a> I found on Bayesian statistics:</p>
@@ -82,7 +7,7 @@ probability is expressed as a degree of certainty that a particular event will t
   <p>“When we get new information, we should update our probabilities to take the new information into account. Bayesian methods tell us exactly how to do this.”</p>
 </blockquote>
 
-<h2 id="basic-notation-and-terminology">Basic Notation and Terminology</h2>
+<h2 id="basic-notation--terminology">Basic Notation &amp; Terminology</h2>
 
 <h3 id="notation">Notation</h3>
 
@@ -285,7 +210,7 @@ The normalising factor ensures the final calculated value is within the range 0-
 \[C = {1\over3},\ G_1 = {1\over3},\ G_2 = {1\over3}\]
 </blockquote>
 
-<p>Now we can compute everything. In this case, the likelihood is the probability that Monty will open the second door (\(D_2\)), <em>given that</em> we have picked the right door on our first try and the car is behind the door we chose (given \(C\)). This means both \(D_2\) and \(D_3\) will have goats, so Monty has an equal chance of picking either door; therefore the likelihood is \(1\over2\).</p>
+<p>Now we can compute everything. In this case, the likelihood is the probability that Monty will open the second door (\(D_2\)), <em>given that</em> we have picked the right door on our first try and the car is behind the door we chose (given \(C\)). This means both \(D_2\) and \(D_3\) will have goats, so Monty has an equal chance of picking either door; therefore the likelihood is 0.5.</p>
 
 <p>The prior must be \(1\over3\) because there are three doors and the car could be behind any of them, so \(P\ (C) = {1\over3}\)</p>
 
@@ -324,62 +249,8 @@ The normalising factor ensures the final calculated value is within the range 0-
 <p>Now, adding all these values togehter, we find that:</p>
 
 <blockquote>
-\[P (D_2) = {1\over2}\]
+\[P (D_2) = 1\over{2}\]
 </blockquote>
-
-<p>We now have all the values we need, and can substitute everything into the formula:</p>
-
-<blockquote>
-\[P\ (C \mid D_2) = \\{\\{1\over2} \times {1\over3}\over{1\over2}} = {1\over3}\]
-</blockquote>
-
-<blockquote>
-\[P\ (\overline{C} \mid D_2) = 1 - {1\over3} = {2\over3}\]
-</blockquote>
-
-<blockquote>
-\[\therefore\ \ P\ (\overline{C} \mid D_2)\ \ &gt;\ \ P\ (C \mid D_2)\]
-</blockquote>
-
-<p>Seeing as this is the case, according to probability theory, switching doors is the best strategy.</p>
-
-<h2 id="naive-monte-carlo-approach">Naive Monte Carlo Approach</h2>
-
-<p>Monte Carlo <a href="https://en.wikipedia.org/wiki/Monte_Carlo_method">methods</a> are a very large class of algorithms designed to deduce probability by relying on repeatedly random sampling and drawing a numerical result. This approach can be applied to our problem, where we run the Monte Carlo problem scenario numerous times, and always stick to one of the two strategies and then we can compare the number of wins to the losses.</p>
-
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// language: javascript</span>
-
-<span class="kd">function</span> <span class="nx">getRandomInt</span><span class="p">(</span><span class="nx">max</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nx">max</span><span class="p">));</span>
-<span class="p">}</span>
-
-<span class="kd">const</span> <span class="nx">doors</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span>
-
-<span class="c1">// keep track of how many times each strategy wins</span>
-<span class="kd">let</span> <span class="nx">switchWins</span><span class="p">,</span> <span class="nx">keepWins</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-
-<span class="c1">// run the scenario 1000 times, and always switch doors </span>
-<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">1000</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">car</span> <span class="o">=</span> <span class="nx">doors</span><span class="p">[</span><span class="nx">getRandomInt</span><span class="p">(</span><span class="mi">3</span><span class="p">)];</span>
-    <span class="c1">// getRandomInt(3) will return 0, 1 or 2</span>
-    <span class="nx">ourChoice</span> <span class="o">=</span> <span class="nx">doors</span><span class="p">[</span><span class="nx">getRandomInt</span><span class="p">(</span><span class="mi">3</span><span class="p">)];</span>
-    <span class="nx">montyChoice</span> <span class="o">=</span> 
-<span class="p">}</span>
-
-
-
-
-
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">getRandomInt</span><span class="p">(</span><span class="mi">3</span><span class="p">));</span>
-<span class="c1">// expected output: 0, 1 or 2</span>
-
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">getRandomInt</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
-<span class="c1">// expected output: 0</span>
-
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">());</span>
-<span class="c1">// expected output: a number between 0 and 1</span>
-
-</code></pre></div></div>
 
 <hr />
 <hr />
@@ -387,12 +258,11 @@ The normalising factor ensures the final calculated value is within the range 0-
 
 <h1 id="testing-blocks">Testing blocks</h1>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// bernoulli(0.6) // same as flip(0.6)</span>
-<span class="nx">viz</span><span class="p">(</span><span class="nx">Bernoulli</span><span class="p">(</span> <span class="p">{</span> <span class="na">p</span><span class="p">:</span> <span class="mf">0.6</span> <span class="p">}</span> <span class="p">)</span> <span class="p">)</span>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// bernoulli(0.6) // same as flip(0.6)
+viz(Bernoulli( { p: 0.6 } ) )
 </code></pre></div></div>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// language: javascript</span>
-<span class="kd">const</span> <span class="nx">helloWorld</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Helo wrld</span><span class="dl">"</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">helloWorld</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Helo wrld</span><span class="dl">"</span>
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">helloWorld</span><span class="p">);</span>
 </code></pre></div></div>
 <p><strong>Math?</strong>
@@ -497,19 +367,4 @@ The normalising factor ensures the final calculated value is within the range 0-
   <li><a href="https://bayesmodels.com">Bayesian Cognitive Modeling</a> (Lee &amp; Wagenmakers)</li>
 </ul>
 
-
-      </div>
-    </div>
-
-    <footer class="site-footer">
-  <a href="https://github.com/JoaoNM/Bayesian-ML" id="github-edit-link">Edit on Github</a>
-</footer>
-
-<script type="text/javascript">
-  $("#github-edit-link").attr("href", github_page_url("/"))
-</script>
-
-
-  </body>
-
-</html>
+:ET

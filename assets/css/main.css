@@ -31,8 +31,23 @@ h3 {
     color: #FFD100
 }
 
-.page-content-wrapper {
+.page-content-wrapper, .contents-wrapper {
     margin: 0 20vw;
+}
+
+a {
+    color: inherit
+}
+
+.contents-wrapper li {
+    list-style-type: none;
+}
+
+.contents-wrapper {
+    list-style-type: none;
+    padding: 0;
+    color: #7a7a7a;
+    line-height: 24px;
 }
 
 .page-content-wrapper a {
@@ -100,5 +115,7 @@ blockquote {
     padding: 5px 20px;
     /* border-left: 2px black solid; */
     font-weight: bold;
+    overflow: scroll;
+    width: 100%;
 }
 
