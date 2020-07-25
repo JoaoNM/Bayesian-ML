@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Causal models</title>
+  <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+  <link rel="stylesheet" href="/bdappl/assets/css/main.css">
+  <link rel="stylesheet" href="/bdappl/assets/css/code.css">
+  <!-- Katex Script -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=PT+Serif:ital@1&display=swap" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/bdappl/chapters/05-patterns.html">
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script>
+  <script src="/bdappl/assets/js/parse-bibtex.js"></script>
+  <script src="/bdappl/assets/js/main.js"></script>
+
+  <script src="https://s3-us-west-2.amazonaws.com/cdn.webppl.org/webppl-editor-1.0.9.js"></script>
+  <link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/cdn.webppl.org/webppl-editor-1.0.9.css">
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+
+
+  <script src="https://s3-us-west-2.amazonaws.com/cdn.webppl.org/webppl-viz-0.7.11.js"></script>
+  <link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/cdn.webppl.org/webppl-viz-0.7.11.css">
+  <!-- <link rel="stylesheet" href="http://127.0.0.1:8888/home/wp/viz/demo/webppl-viz.css"> -->
+  <!-- <script src="http://127.0.0.1:8888/home/wp/viz/demo/webppl-viz.js"></script> -->
+
+  <script src="https://s3-us-west-2.amazonaws.com/cdn.webppl.org/webppl-v0.9.13.js"></script>
+</head>
+
+  <body>
+
+    <header class="site-header">
+  <a class="site-title">Bayesian <span>Machine Learning</span></a>
+</header>
+
+
+    <div class="page-content-wrapper">
+      <div class="page-content">
+        <h1 class="chapter-title">Causal models</h1>
+
+<h1 id="patterns-of-inference">Patterns of inference</h1>
+
+<p>Name of the game in these examples is to understand what effect manipulating <code class="language-plaintext highlighter-rouge">b</code> will have on <code class="language-plaintext highlighter-rouge">a</code>.</p>
+
+<p>That is, if we change <code class="language-plaintext highlighter-rouge">b</code>, how will <code class="language-plaintext highlighter-rouge">a</code> change?</p>
+
+<h2 id="statistical-dependence">Statistical dependence</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var model = function(observation){
+  var c = flip(0.5)
+  var b = flip(0.5)
+  var a = b ? flip(0.9) : flip(0.2)
+  condition(b == observation)
+  return {"a": a}
+}
+var b_is_true = Infer({method: "rejection", samples:1000},
+     function(){ model(true) })
+
+print("We observe b is true")
+viz.auto(b_is_true)
+
+var b_is_false = Infer({method: "rejection", samples:1000},
+     function(){ model(false) })
+
+print("We observe b is not true")
+viz.auto(b_is_false)
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var model = function(observation){
+  var c = flip(0.5)
+  var b = c ? flip(0.1) : flip(0.9)
+  var a = c ? flip(0.1) : flip(0.9)
+  condition(b == observation)
+  return {"a": a}
+}
+var b_is_true = Infer({method: "rejection", samples:1000},
+     function(){ model(true) })
+
+print("We observe b is true")
+viz.auto(b_is_true)
+
+var b_is_false = Infer({method: "rejection", samples:1000},
+     function(){ model(false) })
+
+print("We observe b is not true")
+viz.auto(b_is_false)
+</code></pre></div></div>
+
+<h2 id="screening-off">Screening off</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var model = function(observation){
+  var c = flip(0.5)
+  var b = c ? flip(0.1) : flip(0.9)
+  var a = c ? flip(0.1) : flip(0.9)
+  condition(b == observation)
+  return {"a": a}
+}
+
+var b_is_true = Infer({method: "rejection", samples:10000},
+     function(){ model(true) })
+
+print("We observe b is true")
+viz.auto(b_is_true)
+
+var b_is_false = Infer({method: "rejection", samples:10000},
+     function(){ model(false) })
+
+print("We observe b is not true")
+viz.auto(b_is_false)
+</code></pre></div></div>
+
+<p>Now, what happens if we know <code class="language-plaintext highlighter-rouge">c</code> to be <code class="language-plaintext highlighter-rouge">true</code> ?</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var model = function(observation){
+  var c = flip(0.5)
+  var b = c ? flip(0.1) : flip(0.9)
+  var a = c ? flip(0.1) : flip(0.9)
+  condition(c &amp; (b == observation))
+  return {"a": a}
+}
+
+var b_is_true = Infer({method: "rejection", samples:10000},
+     function(){ model(true) })
+
+print("We observe c and that b is true")
+viz.auto(b_is_true)
+
+var b_is_false = Infer({method: "rejection", samples:10000},
+     function(){ model(false) })
+
+print("We observe c and that b is not true")
+viz.auto(b_is_false)
+</code></pre></div></div>
+
+<h2 id="explaining-away">Explaining away</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var model = function(observation){
+  var a = flip(0.5)
+  var b = flip(0.5)
+  var c = (a || b) ? flip(0.9) : flip(0.2)
+  condition(b == observation)
+  return {"a": a}
+}
+
+var b_is_true = Infer({method: "rejection", samples:10000},
+     function(){ model(true) })
+
+print("We observe b is true")
+viz.auto(b_is_true)
+
+var b_is_false = Infer({method: "rejection", samples:10000},
+     function(){ model(false) })
+
+print("We observe b is not true")
+viz.auto(b_is_false)
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var model = function(observation){
+  var a = flip(0.5)
+  var b = flip(0.5)
+  var c = (a || b) ? flip(0.9) : flip(0.2)
+  condition(c &amp; (b == observation))
+  return {"a": a}
+}
+
+var b_is_true = Infer({method: "rejection", samples:1000},
+     function(){ model(true) })
+
+print("We observe c and that b is true")
+viz.auto(b_is_true)
+
+var b_is_false = Infer({method: "rejection", samples:1000},
+     function(){ model(false) })
+
+print("We observe c and that b is not true")
+viz.auto(b_is_false)
+</code></pre></div></div>
+
+<p>In the <a href="06-advancedBDA.html">next chapter</a>, we’ll show how you can elaborate your models to better represent your data (under development).</p>
+
+
+
+<hr>
+
+<a href="/bdappl/">Table of Contents</a>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+  <a href="http://gscontras.github.io/probLang/" id="github-edit-link">Edit on Github</a>
+</footer>
+
+<script type="text/javascript">
+  $("#github-edit-link").attr("href", github_page_url("/chapters/05-patterns.html"))
+</script>
+
+
+  </body>
+
+</html>

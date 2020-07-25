@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Analyzing Bayesian cognitive models</title>
+  <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+  <link rel="stylesheet" href="/bdappl/assets/css/main.css">
+  <link rel="stylesheet" href="/bdappl/assets/css/code.css">
+  <!-- Katex Script -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=PT+Serif:ital@1&display=swap" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/bdappl/chapters/08-bda-bcm.html">
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script>
+  <script src="/bdappl/assets/js/parse-bibtex.js"></script>
+  <script src="/bdappl/assets/js/main.js"></script>
+
+  <script src="https://s3-us-west-2.amazonaws.com/cdn.webppl.org/webppl-editor-1.0.9.js"></script>
+  <link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/cdn.webppl.org/webppl-editor-1.0.9.css">
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+
+
+  <script src="https://s3-us-west-2.amazonaws.com/cdn.webppl.org/webppl-viz-0.7.11.js"></script>
+  <link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/cdn.webppl.org/webppl-viz-0.7.11.css">
+  <!-- <link rel="stylesheet" href="http://127.0.0.1:8888/home/wp/viz/demo/webppl-viz.css"> -->
+  <!-- <script src="http://127.0.0.1:8888/home/wp/viz/demo/webppl-viz.js"></script> -->
+
+  <script src="https://s3-us-west-2.amazonaws.com/cdn.webppl.org/webppl-v0.9.13.js"></script>
+</head>
+
+  <body>
+
+    <header class="site-header">
+  <a class="site-title">Bayesian <span>Machine Learning</span></a>
+</header>
+
+
+    <div class="page-content-wrapper">
+      <div class="page-content">
+        <h1 class="chapter-title">Analyzing Bayesian cognitive models</h1>
+
+<p>Consider a simple agent model.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var actions = ['italian', 'french'];
+
+var transition = function(state, action){
+  var nextStates = ['bad', 'good', 'spectacular'];
+  var nextProbs = (action === 'italian') ? [0.2, 0.6, 0.2] : [0.05, 0.9, 0.05];
+  return categorical(nextProbs, nextStates);
+};
+
+var utility = function(state){
+  var table = { 
+    bad: -10, 
+    good: 6, 
+    spectacular: 8 
+  };
+  return table[state];
+};
+
+var agent = function(state, alpha){
+  return Infer({ model: function(){
+
+    var action = uniformDraw(actions);
+
+    var expectedUtility = function(action){
+      return expectation(Infer({ method: 'enumerate' }, function(){
+        return utility(transition(state, action));
+      }));
+    };
+    factor(alpha * expectedUtility(action));
+    return action;
+  },  method: 'enumerate' })
+};
+
+viz(agent(null, 1))
+</code></pre></div></div>
+
+<p>This agent is trying to figure out what action to take. 
+It does so by calculated expected utility, which is computed via imagining how different actions would translate into utility. 
+It acts according to a soft-max decision rule, which is shown in the factor statement.</p>
+
+<h3 id="bayesian-data-analysis-of-a-bayesian-cognitive-model">Bayesian data analysis of a Bayesian cognitive model</h3>
+
+<p>The model above has a single free parameter: The soft-max parameter <code class="language-plaintext highlighter-rouge">alpha</code>. 
+We could infer the credible values of that parameter, if we had data showing how the agent behaved in a given situation. 
+Below, we have some example data (example decisions or actions the agent has taken), and we will build a simple BDA model to infer <code class="language-plaintext highlighter-rouge">alpha</code>.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var actions = ['italian', 'french'];
+
+var transition = function(state, action){
+  var nextStates = ['bad', 'good', 'spectacular'];
+  var nextProbs = (action === 'italian') ? [0.2, 0.6, 0.2] : [0.05, 0.9, 0.05];
+  return categorical(nextProbs, nextStates);
+};
+
+var utility = function(state){
+  var table = { 
+    bad: -10, 
+    good: 6, 
+    spectacular: 8 
+  };
+  return table[state];
+};
+
+var agent = function(state, alpha){
+  return Infer({ method: 'enumerate' }, function(){
+
+    var action = uniformDraw(actions);
+
+    var expectedUtility = function(action){
+      return expectation(Infer({ method: 'enumerate' }, function(){
+        return utility(transition(state, action));
+      }));
+    };
+    factor(alpha * expectedUtility(action));
+    return action;
+  })
+};
+
+var data = ['italian', 'french','french','french','french','french','french',
+           'french','french','french','french','french','italian', 'italian',
+           'french','french','french','french','french','french',
+           'french','french','french','french','french','french',
+           'french','french','french','french','french','french',
+           'french','french','french','french','french','french',
+           'french','french','french','french','french','french']
+
+var dataAnalysisModel = function(){
+  var alpha = uniform(0, 5);
+  var cognitiveModel = agent('initialState', alpha);
+  map(function(d){observe(cognitiveModel, d)}, data)
+  return {
+    alpha: alpha,
+    french_prediction: Math.exp(cognitiveModel.score("french"))
+  }
+}
+
+var numSamples = 5000;
+
+var inferOpts = {
+  method: "MCMC",
+  samples: numSamples,
+  burn: numSamples / 2,
+  callbacks: [editor.MCMCProgress()],
+  model: dataAnalysisModel
+}
+
+var posterior = Infer(inferOpts);
+
+viz(posterior);
+</code></pre></div></div>
+
+<p><strong>Exercises:</strong></p>
+
+<ol>
+  <li>Above we have returned the posterior over the parameter <code class="language-plaintext highlighter-rouge">alpha</code> as well as the posterior predictive of choosing the french restaurant. Modify the code to instead return the prior predictive of choosing the french restaurant.</li>
+  <li>Try to break the model by switching around the agent’s utilities and re-run the BDA model. How do you identify that the model is misspecified?</li>
+</ol>
+
+
+<hr>
+
+<a href="/bdappl/">Table of Contents</a>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+  <a href="http://gscontras.github.io/probLang/" id="github-edit-link">Edit on Github</a>
+</footer>
+
+<script type="text/javascript">
+  $("#github-edit-link").attr("href", github_page_url("/chapters/08-bda-bcm.html"))
+</script>
+
+
+  </body>
+
+</html>

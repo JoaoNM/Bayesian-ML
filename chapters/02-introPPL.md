@@ -18,7 +18,7 @@ and [factors](http://webppl.readthedocs.io/en/dev/inference/index.html#factor).
 > **Probabilistic model**: A mathematical mapping from a set of latent (unobservable) variables to a *probability distribution* of observable outcomes or data. A **probability distribution** is simply a mathematical mapping between outcomes and their associated probability of occurrence.
 
 
-### Sampling
+### Sampling testtniningirnigntigntingitnignit
 
 The core ingredient of probabilistic programs: *random primitives*.
 

@@ -1,0 +1,58 @@
+I"�<h3 id="appendix-chapter-1-prior-distributions-over-parameters-and-data">Appendix Chapter 1: Prior distributions over parameters and data</h3>
+
+<p>Recall that distributions provide both a set of possible values of a variable and their associated probabilities. 
+So we can break the problem down into articulating the set of possible values and then the probabilities of each of the values.</p>
+
+<ol>
+  <li>
+    <p><strong>Possible values the parameter could take on</strong>: This is dictated by the role of the parameter in the model.
+For example, in abstract terms, <code class="language-plaintext highlighter-rouge">propensityToHelp</code> is the weight of a coin, and thus must be a number between 0 and 1. (It would not make sense, in the generative model we’ve described so far, for <code class="language-plaintext highlighter-rouge">propensityToHelp</code> to be a negative number, or greater than 1.)</p>
+  </li>
+  <li>
+    <p><strong>Probabilities of all of the possible values of the parameter</strong>: This is much less obvious, but a good starting point is to consider all of the possible values equally probable. That is, we might be completely ignorant as to what the parameter should be (or, we might imagine a host of skeptical reviewers, some of whom think the parameter ought to be high, others who think the parameter ought to be low, and so we intuitively average across all of these potential skeptics). Your understanding of the prior probabilities of the parameter values will grow as you internalize the model more and as we explore the implications of different prior distributions for the results.</p>
+  </li>
+</ol>
+
+<p>So for <code class="language-plaintext highlighter-rouge">propensityToHelp</code>, a relatively uncontroversial assumption would be that it could be any number between 0 and 1, with all numbers equally likely.
+Now that we’ve made explicit our prior beliefs, we need to find a probability distribution that has these features (if one does not exist, we will need to construct one).
+Fortunately, one does exist! 
+The <a href="http://docs.webppl.org/en/master/distributions.html#Beta">Beta distribution</a> is a distribution over the numbers between 0 and 1. 
+The Beta distribution has two parameters (denoted in WebPPL as <code class="language-plaintext highlighter-rouge">a</code> and <code class="language-plaintext highlighter-rouge">b</code>). 
+As can be gleaned from the <a href="https://en.wikipedia.org/wiki/Beta_distribution">Wikipedia article</a>, the parameters that correspond to equal probability for all values between 0 and 1 are <code class="language-plaintext highlighter-rouge">a=1</code> and <code class="language-plaintext highlighter-rouge">b=1</code>. 
+So our prior distribution is the <code class="language-plaintext highlighter-rouge">Beta({a: 1, b:1})</code>.</p>
+
+<p>Because assigning equal probabilities to all possible values of a distribution is a very common practice, this state of knowledge can also be described with another family of distributions: The Uniform distribution. The Uniform distribution has two parameters as well (also denoted in WebPPL as <code class="language-plaintext highlighter-rouge">a</code> and <code class="language-plaintext highlighter-rouge">b</code>). These parameters are the lower and upper bounds of the range of values. And so, the <code class="language-plaintext highlighter-rouge">Beta({a: 1, b:1})</code> is equal to <code class="language-plaintext highlighter-rouge">Uniform({a: 0, b:1})</code>.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var PriorDistribution = Uniform({a:0, b:1})
+
+var samplePrior = function(){
+  var propensityToHelp = sample(PriorDistribution)
+  return {propensityToHelp}
+}
+
+viz(repeat(10000, samplePrior))
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">Uniform</code> distribution (bounded between 0 and 1) represents our <em>a priori</em> state of knowledge about <code class="language-plaintext highlighter-rouge">propensityToHelp</code>.
+Specifying what we believe <em>a priori</em> is the first step towards determining what we should believe <em>a posteriori</em>, or after we observe the data.</p>
+
+<p>We can combine this prior distribution over the parameter with our generative process of the data, which we wrote down above.
+Composing these together will produce a prior distribution over observed data.
+Distributions over observed data are called <strong>predictive distributions</strong> and so this is the <em>prior predictive distribution</em>.
+The support of this distribution (i.e., the values over which this distribution is defined) are the possible outcomes of the experiment, whereas the <strong>parameter distribution</strong> above is defined over the values of the latent parameter.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var PriorDistribution = Uniform({a:0, b:1});
+var numberOfKidsTested = 20;
+var samplePriorPredictive = function(){
+  var propensityToHelp = sample(PriorDistribution)
+  var numberOfHelpfulResponses = binomial({
+    p: propensityToHelp,
+    n: numberOfKidsTested
+  })
+  return {numberOfHelpfulResponses}
+}
+
+viz(repeat(10000, samplePriorPredictive))
+</code></pre></div></div>
+
+:ET
