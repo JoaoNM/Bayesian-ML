@@ -158,8 +158,15 @@ The prior must be $$1\over3$$ because there are three doors and the car could be
 
 Calculating the normalising factor directly in this example is a little bit complicated, but done manually it can be broken down to make it easier. We can break $$ P\ (D_2) $$ down into the following: 
 
-> $$ P\ (D_2) = P\ (D_2 \intersect C) +  $$
+> $$ P\ (D_2) = P\ (D_2 \cap C) + P\ (D_2 \cap \overline{C}) $$
 
+> $$ = P\ (D_2 \cap C) + P\ (D_2 \cap C_2) + P\ (D_2 \cap C_3) $$
+
+For the purpose of this example, we're breaking $$\overline C$$ into $$C_2$$ and $$C_3$$, which represent the car being behind the second and third door, respectively. This is done to make things easier to calculate. 
+
+These can then be further broken down like so: 
+
+> 
 
 ---
 ---
