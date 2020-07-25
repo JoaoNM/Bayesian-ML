@@ -164,9 +164,15 @@ Calculating the normalising factor directly in this example is a little bit comp
 
 For the purpose of this example, we're breaking $$\overline C$$ into $$C_2$$ and $$C_3$$, which represent the car being behind the second and third door, respectively. This is done to make things easier to calculate. 
 
-These can then be further broken down like so: 
+Keeping in mind what was explained above, these can then be further broken down like so: 
 
-> 
+> $$ P\ (D_2 \cap C) = P\ (D_2 \mid C) \times P\ (C) $$
+
+> $$ P\ (D_2 \cap C_2) = P\ (D_2 \mid C_2) \times P\ (C_2) $$
+
+> $$ P\ (D_2 \cap C_3) = P\ (D_2 \mid C_3) \times P\ (C_3) $$
+
+
 
 ---
 ---

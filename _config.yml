@@ -1,7 +1,7 @@
 # Site settings
 
 title: Bayesian Machine Learning
-baseurl: "/"
+baseurl: ""
 url: "http://mhtess.github.io/bdappl"
 
 # Build settings
