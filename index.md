@@ -194,7 +194,7 @@ Seeing as this is the case, according to probability theory, switching doors is 
 
 ## Naive Monte Carlo Approach 
 
-Monte Carlo [methods](https://en.wikipedia.org/wiki/Monte_Carlo_method) are a very large class of algorithms designed to deduce probability by relying on repeatedly random sampling and drawing a numerical result. This approach can be applied to our problem, where we run the Monte Carlo problem scenario numerous times, and always stick to one of the two strategies and then we can compare the number of wins to the losses. 
+Monte Carlo [methods](https://en.wikipedia.org/wiki/Monte_Carlo_method) are a very large class of algorithms designed to deduce probability by relying on repeatedly random sampling and drawing a numerical result. This approach can be applied to our problem, where we run the Monty Carlo problem scenario numerous times, and always stick to one of the two strategies and then we can compare the number of wins to the losses. 
 
 ~~~javascript
 // language: javascript
@@ -255,11 +255,55 @@ console.log(`Rough probability of winning when keeping every time: ${keepWins / 
 
 In the code above, the scenario is run 20,000 times in total, 10,000 where we keep our first door choice every time, and 10,000 where we switch doors every time. As can be seen by the results, this supports our calculated probabilities: if you switch your chances of winning are actually higher. 
 
+## Using WebPPL 
+
+Instead of using a brute force algorithm like the one used above, which was an incredibly inefficent approach, we can use a [probabilistic programming](https://en.wikipedia.org/wiki/Probabilistic_programming) language (known as PPLs) which have built-in inference algorithms under the hood so we can deal with probability problems much more effeciently. There are lots of PPLs, but in this case we are using [WebPPL](https://webppl.readthedocs.io/en/master/).
+
+### No WLOG
+
+Here is one possible approach, which doesn't resort to any "without loss of generality" argument. 
+
+~~~
+var MontyHall = function () {
+  var car = randomInteger({n: 3})
+  var our_choice = randomInteger({n: 3})
+  var all_doors_but = function (d1, d2) {
+    return filter(function(d){return d != d1 & d != d2 }, [0,1,2])
+  }
+  var monty = categorical({vs: all_doors_but(car, our_choice)})
+  var door_not_opened = all_doors_but(monty, our_choice)[0]
+
+  return car == door_not_opened ? "change wins": "keep wins"
+}
+
+viz(Infer(MontyHall))
+~~~
+
+In this code, we pick a random door for the car and for our choice, and then Monty picks whichever door is neither the car nor our choice. We then find which door hasn't been opened and if the car is behind the unopened door, a change strategy would've won, whereas if not, keeping would've won. This is similar to the example in javascript above, except that we avoid repeating 20,000 times, using an inference algorithm built into the PPL (`Infer()` - [read more](https://webppl.readthedocs.io/en/master/inference/index.html))
+
+### WLOG
+
+In an alternative solution, we can modify the program slightly to be without loss of generality, where we assume we always pick the first door and Monty always opens the second. 
+
+~~~
+var MontyHall = function () {
+  var car = randomInteger({n: 3})
+  var our_choice = randomInteger({n: 3})
+  var monty = categorical({vs: filter(
+    function(d){return d != car & d != our_choice }, [0,1,2])})
+  
+  condition((our_choice == 0) & (monty == 1))
+  return car == 2 ? "change wins": "keep wins"
+}
+
+viz(Infer(MontyHall))
+~~~
+
 ## Citation
 
 M. H. Tessler (in prep). *Bayesian data analysis: An introduction using probabilistic programs*. Retrieved <span class="date"></span> from https://mhtess.github.io/bdappl/
 
-## Useful resources
+## Useful References
 
 #### WebPPL support and packages
 
