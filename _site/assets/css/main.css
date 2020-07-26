@@ -70,6 +70,10 @@ a {
     right: 10px;
     bottom: 10px;
     font-size: 25px;
+    transition: all 0.3s;
+}
+.scroll-top:hover {
+    color: rgba(0,0,0,0.8);
 }
 
 .page-content .CodeMirror-lines, .page-content .wpedit .result {
