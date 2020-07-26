@@ -65,6 +65,12 @@ a {
     color: #157885
 }
 
+.scroll-top {
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    font-size: 25px;
+}
 
 .page-content .CodeMirror-lines, .page-content .wpedit .result {
     padding: 5px;
