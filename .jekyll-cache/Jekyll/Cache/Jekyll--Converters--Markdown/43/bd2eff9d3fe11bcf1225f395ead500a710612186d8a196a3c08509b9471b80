@@ -1,79 +1,4 @@
-<!DOCTYPE html>
-<html>
-
-  <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bayesian Machine Learning</title>
-  <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
-  <link rel="stylesheet" href="/bdappl/assets/css/main.css">
-  <link rel="stylesheet" href="/bdappl/assets/css/code.css">
-  <!-- Katex Script -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;700;900&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=PT+Serif:ital@1&display=swap" rel="stylesheet">
-
-  <link rel="canonical" href="http://localhost:4000/bdappl/">
-  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script>
-  <script src="/bdappl/assets/js/parse-bibtex.js"></script>
-  <script src="/bdappl/assets/js/main.js"></script>
-
-  <script src="https://s3-us-west-2.amazonaws.com/cdn.webppl.org/webppl-editor-1.0.9.js"></script>
-  <link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/cdn.webppl.org/webppl-editor-1.0.9.css">
-
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async
-            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
-    </script>
-
-
-  <script src="https://s3-us-west-2.amazonaws.com/cdn.webppl.org/webppl-viz-0.7.11.js"></script>
-  <link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/cdn.webppl.org/webppl-viz-0.7.11.css">
-  <!-- <link rel="stylesheet" href="http://127.0.0.1:8888/home/wp/viz/demo/webppl-viz.css"> -->
-  <!-- <script src="http://127.0.0.1:8888/home/wp/viz/demo/webppl-viz.js"></script> -->
-
-  <script src="https://s3-us-west-2.amazonaws.com/cdn.webppl.org/webppl-v0.9.13.js"></script>
-</head>
-
-  <body>
-
-    <header class="site-header">
-  <a class="site-title">Bayesian <span>Machine Learning</span></a>
-</header>
-
-
-    <ul class="contents-wrapper">
-    <a href="#bayesian-probabilities-an-introduction">Bayesian Probabilities: An Introduction</a>
-    <ul>
-      <a href="#basic-notation-and-terminology">Basic Notation and Terminology</a>
-      <ul>
-        <a href="#notation">Notation</a>
-        <li><a href="#terminology">Terminology</a></li>
-      </ul>
-      <li><a href="#bayes-theorem">Bayes Theorem</a></li>
-      <ul>
-        <li><a href="#important-note">Important Note</a></li>
-        <li><a href="#putting-it-together">Putting It Togehter</a></li>
-      </ul>
-    </ul>
-    <li><a href="#the-monty-hall-problem">The Monty Hall Problem</a></li>
-    <ul>
-      <a href="#introduction">Introduction</a>
-      <li><a href="#manual-approach">Manual Approach</a></li>
-      <ul>
-        <li><a href="#modeling-the-problem">Modeling the Problem</a></li>
-        <li><a href="#applying-bayes-theorem">Applying Bayes Theorem</a></li>
-      </ul>
-      <li><a href="#naive-monte-carlo-approach">Naive Monte Carlo Approach</a></li>
-    </ul>
-    </ul>
-
-    <div class="page-content-wrapper">
-      <div class="page-content">
-        <h1 id="bayesian-probabilities-an-introduction">Bayesian Probabilities: An Introduction</h1>
+I"ah<h1 id="bayesian-probabilities-an-introduction">Bayesian Probabilities: An Introduction</h1>
 
 <p>Bayesian probability is a field within the larger field of <a href="https://en.wikipedia.org/wiki/Bayesian_statistics">Bayesian statistics</a> where 
 probability is expressed as a degree of certainty that a particular event will take place. The particular difference in Bayesian probability compared to <a href="https://en.wikipedia.org/wiki/Frequentist_probability">frequentist probability</a> (the more well known approach) is that when calculating probabilities with Bayesian models, we can update our probabilites when a particular event occurs. In more intuitive terms, when we have an event, and we want to calculate its probability, intuitively, we will try to factor in different variables that may affect the likelihood of that event happening; when one of these variables may change, our initial probability may also therefore change - Bayesian models help us do this mathematically. This is best put by some <a href="https://www.stat.auckland.ac.nz/~brewer/stats331.pdf">great lecture notes</a> I found on Bayesian statistics:</p>
@@ -353,57 +278,93 @@ The normalising factor ensures the final calculated value is within the range 0-
   <span class="k">return</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nx">max</span><span class="p">));</span>
 <span class="p">}</span>
 
+<span class="kd">let</span> <span class="nx">doors</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span>
+
 <span class="c1">// keep track of how many times each strategy wins</span>
-<span class="kd">let</span> <span class="nx">keepWins</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="kd">let</span> <span class="nx">switchWins</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">switchWins</span><span class="p">,</span> <span class="nx">keepWins</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 
-<span class="c1">// run the scenario 10000 times, and always keep the first door choice </span>
-<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">10000</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">let</span> <span class="nx">doors</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span>
+<span class="c1">// run the scenario 1000 times, and always switch doors </span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">1000</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// getRandomInt(3) will return 0, 1 or 2</span>
     <span class="kd">const</span> <span class="nx">car</span> <span class="o">=</span> <span class="nx">doors</span><span class="p">[</span><span class="nx">getRandomInt</span><span class="p">(</span><span class="mi">3</span><span class="p">)];</span>
     <span class="kd">const</span> <span class="nx">ourChoice</span> <span class="o">=</span> <span class="nx">doors</span><span class="p">[</span><span class="nx">getRandomInt</span><span class="p">(</span><span class="mi">3</span><span class="p">)];</span>
     <span class="c1">// Monty can't pick our door or the car, so remove those options</span>
+    <span class="c1">// console.log(doors.indexOf(car));</span>
+    <span class="c1">// console.log(doors.indexOf(ourChoice));</span>
     <span class="nx">doors</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="nx">doors</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">car</span><span class="p">),</span> <span class="mi">1</span><span class="p">);</span>
     <span class="nx">doors</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="nx">doors</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">ourChoice</span><span class="p">),</span> <span class="mi">1</span><span class="p">);</span>
-    <span class="c1">// There is now only one door left, which is the one Monty will open</span>
+    <span class="c1">// console.log(doors);</span>
     <span class="kd">const</span> <span class="nx">montyChoice</span> <span class="o">=</span> <span class="nx">doors</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
-
-    <span class="c1">// we're keeping, so if our first choice is also the car, we win</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">ourChoice</span> <span class="o">==</span> <span class="nx">car</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">keepWins</span><span class="o">++</span><span class="p">;</span>
-    <span class="p">}</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">car</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">ourChoice</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">montyChoice</span><span class="p">);</span>
 <span class="p">}</span>
-
-<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">10000</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">let</span> <span class="nx">doors</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span>
-    <span class="c1">// getRandomInt(3) will return 0, 1 or 2</span>
-    <span class="kd">const</span> <span class="nx">car</span> <span class="o">=</span> <span class="nx">doors</span><span class="p">[</span><span class="nx">getRandomInt</span><span class="p">(</span><span class="mi">3</span><span class="p">)];</span>
-    <span class="kd">const</span> <span class="nx">ourChoice</span> <span class="o">=</span> <span class="nx">doors</span><span class="p">[</span><span class="nx">getRandomInt</span><span class="p">(</span><span class="mi">3</span><span class="p">)];</span>
-    <span class="c1">// Monty can't pick our door or the car, so remove those options</span>
-    <span class="nx">doors</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="nx">doors</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">car</span><span class="p">),</span> <span class="mi">1</span><span class="p">);</span>
-    <span class="nx">doors</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="nx">doors</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">ourChoice</span><span class="p">),</span> <span class="mi">1</span><span class="p">);</span>
-    <span class="c1">// There is now only one door left, which is the one Monty will open</span>
-    <span class="kd">const</span> <span class="nx">montyChoice</span> <span class="o">=</span> <span class="nx">doors</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
-
-    <span class="c1">// now we have to change our choice to be the door monty hasn't picked </span>
-    <span class="nx">doors</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
-    <span class="nx">doors</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="nx">doors</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">ourChoice</span><span class="p">),</span> <span class="mi">1</span><span class="p">);</span>
-    <span class="nx">doors</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="nx">doors</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">montyChoice</span><span class="p">),</span> <span class="mi">1</span><span class="p">);</span>
-    <span class="kd">const</span> <span class="nx">newChoice</span> <span class="o">=</span> <span class="nx">doors</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
-
-    <span class="k">if</span> <span class="p">(</span><span class="nx">newChoice</span> <span class="o">==</span> <span class="nx">car</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">switchWins</span><span class="o">++</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Scenario run 10,000 times</span><span class="dl">"</span><span class="p">);</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">`Wins when keeping: </span><span class="p">${</span><span class="nx">keepWins</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">`Wins when switching doors: </span><span class="p">${</span><span class="nx">switchWins</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">`Rough probability of winning when keeping every time: </span><span class="p">${</span><span class="nx">keepWins</span> <span class="o">/</span> <span class="mi">10000</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span>
 </code></pre></div></div>
 
-<p>In the code above, the scenario is run 20,000 times in total, 10,000 where we keep our first door choice every time, and 10,000 where we switch doors every time. As can be seen by the results, this supports our calculated probabilities: if you switch your chances of winning are actually higher.</p>
+<hr />
+<hr />
+<hr />
+
+<h1 id="testing-blocks">Testing blocks</h1>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// bernoulli(0.6) // same as flip(0.6)</span>
+<span class="nx">viz</span><span class="p">(</span><span class="nx">Bernoulli</span><span class="p">(</span> <span class="p">{</span> <span class="na">p</span><span class="p">:</span> <span class="mf">0.6</span> <span class="p">}</span> <span class="p">)</span> <span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// language: javascript</span>
+<span class="kd">const</span> <span class="nx">helloWorld</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Helo wrld</span><span class="dl">"</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">helloWorld</span><span class="p">);</span>
+</code></pre></div></div>
+<p><strong>Math?</strong>
+\(P(B \mid A) := \frac{P(B \cap A)}{P(A)}\)
+\(x = {-b \pm \sqrt{b^2-4ac} \over 2a}\)</p>
+
+<h1 id="old-stuff">Old stuff</h1>
+<p>[Note: This course is still being developed. Any feedback would be greatly appreciated and can be sent to <code class="language-plaintext highlighter-rouge">tessler@mit.edu</code>]</p>
+
+<p>Learning statistics is like learning pottery. With pottery, you can learn how to make different shapes (e.g. a bowl, a vase, a spoon) without understanding general principles. The other way is to learn the basic strokes of forming pottery (e.g. how to mold a curved surface, a flat surface, long pointy things). In this course, we are going to learn the basic strokes of statistics, and compose those strokes to make shapes you’ve seen before (e.g. a t-test), some shapes you’ve probably never seen before, and develop ideas how you would make new shapes if you needed to. We won’t learn <em>what tests apply to what data types</em> but instead foster the ability to reason through data analysis. We will do this through the lens of Bayesian statistics, though the basic ideas will aid your understanding of classical (frequentist) statistics as well.</p>
+
+<h2 id="chapters">Chapters</h2>
+
+<ol>
+  <li>
+    <p><strong><a class="chapter-link" href="/bdappl/chapters/01-intro.html">Why analyze data</a></strong><br />
+     <em>Course overview</em></p>
+  </li>
+  <li>
+    <p><strong><a class="chapter-link" href="/bdappl/chapters/02-introPPL.html">Probabilistic programming</a></strong><br />
+     <em>A brief introduction.</em></p>
+  </li>
+  <li>
+    <p><strong><a class="chapter-link" href="/bdappl/chapters/03-simpleModels.html">Learning about a hypothesis</a></strong><br />
+     <em>Models formalize hypotheses</em></p>
+  </li>
+  <li>
+    <p><strong><a class="chapter-link" href="/bdappl/chapters/04-hypothesisTesting.html">Comparing hypotheses</a></strong><br />
+     <em>Hypothesis testing is model comparison</em></p>
+  </li>
+  <li>
+    <p><strong><a class="chapter-link" href="/bdappl/chapters/05-patterns.html">Causal models</a></strong><br />
+     <em>Reasoning with structured knowledge</em></p>
+  </li>
+  <li>
+    <p><strong><a class="chapter-link" href="/bdappl/chapters/08-bda-bcm.html">Analyzing Bayesian cognitive models</a></strong><br />
+     <em>The fully Bayesian treatment</em></p>
+  </li>
+</ol>
+
+<h2 id="appendix">Appendix</h2>
+
+<ol>
+  <li>
+    <p><strong><a class="chapter-link" href="/bdappl/chapters/app-01-priors.html">Coming up with priors</a></strong><br />
+     <em>Systematically interrogating one’s knowledge</em></p>
+  </li>
+  <li>
+    <p><strong><a class="chapter-link" href="/bdappl/chapters/app-02-inference.html">Bayesian inference in a probabilistic program</a></strong><br />
+     <em>Understanding observe, condition, and factor via rejection sampling</em></p>
+  </li>
+</ol>
 
 <h2 id="citation">Citation</h2>
 
@@ -456,19 +417,4 @@ The normalising factor ensures the final calculated value is within the range 0-
   <li><a href="https://bayesmodels.com">Bayesian Cognitive Modeling</a> (Lee &amp; Wagenmakers)</li>
 </ul>
 
-
-      </div>
-    </div>
-
-    <footer class="site-footer">
-  <a href="https://github.com/JoaoNM/Bayesian-ML" id="github-edit-link">Edit on Github</a>
-</footer>
-
-<script type="text/javascript">
-  $("#github-edit-link").attr("href", github_page_url("/"))
-</script>
-
-
-  </body>
-
-</html>
+:ET

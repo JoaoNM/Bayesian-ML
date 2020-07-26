@@ -203,91 +203,57 @@ function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
 
-const doors = [1, 2, 3];
-
 // keep track of how many times each strategy wins
-let switchWins, keepWins = 0;
+let keepWins = 0;
+let switchWins = 0;
 
-// run the scenario 1000 times, and always switch doors 
-for (let i = 0; i < 1000; i++) {
-    car = doors[getRandomInt(3)];
+// run the scenario 10000 times, and always keep the first door choice 
+for (let i = 0; i < 10000; i++) {
+    let doors = [1, 2, 3];
     // getRandomInt(3) will return 0, 1 or 2
-    ourChoice = doors[getRandomInt(3)];
-    montyChoice = 
+    const car = doors[getRandomInt(3)];
+    const ourChoice = doors[getRandomInt(3)];
+    // Monty can't pick our door or the car, so remove those options
+    doors.splice(doors.indexOf(car), 1);
+    doors.splice(doors.indexOf(ourChoice), 1);
+    // There is now only one door left, which is the one Monty will open
+    const montyChoice = doors[0];
+
+    // we're keeping, so if our first choice is also the car, we win
+    if (ourChoice == car) {
+        keepWins++;
+    }
 }
 
+for (let i = 0; i < 10000; i++) {
+    let doors = [1, 2, 3];
+    // getRandomInt(3) will return 0, 1 or 2
+    const car = doors[getRandomInt(3)];
+    const ourChoice = doors[getRandomInt(3)];
+    // Monty can't pick our door or the car, so remove those options
+    doors.splice(doors.indexOf(car), 1);
+    doors.splice(doors.indexOf(ourChoice), 1);
+    // There is now only one door left, which is the one Monty will open
+    const montyChoice = doors[0];
 
+    // now we have to change our choice to be the door monty hasn't picked 
+    doors = [1, 2, 3]
+    doors.splice(doors.indexOf(ourChoice), 1);
+    doors.splice(doors.indexOf(montyChoice), 1);
+    const newChoice = doors[0];
 
+    if (newChoice == car) {
+        switchWins++;
+    }
+}
 
-
-console.log(getRandomInt(3));
-// expected output: 0, 1 or 2
-
-console.log(getRandomInt(1));
-// expected output: 0
-
-console.log(Math.random());
-// expected output: a number between 0 and 1
-
+console.log("Scenario run 10,000 times");
+console.log(`Wins when keeping: ${keepWins}`);
+console.log(`Wins when switching doors: ${switchWins}`);
+console.log(`Rough probability of winning when keeping every time: ${keepWins / 10000}`);
 ~~~
 
-
-
----
----
----
-
-# Testing blocks
-
-~~~javascript
-// bernoulli(0.6) // same as flip(0.6)
-viz(Bernoulli( { p: 0.6 } ) )
-~~~
-
-~~~javascript
-// language: javascript
-const helloWorld = "Helo wrld"
-console.log(helloWorld);
-~~~
-**Math?**
-$$ P(B \mid A) := \frac{P(B \cap A)}{P(A)} $$
-$$ x = {-b \pm \sqrt{b^2-4ac} \over 2a} $$
-
-# Old stuff
-[Note: This course is still being developed. Any feedback would be greatly appreciated and can be sent to `tessler@mit.edu`]
-
-
-Learning statistics is like learning pottery. With pottery, you can learn how to make different shapes (e.g. a bowl, a vase, a spoon) without understanding general principles. The other way is to learn the basic strokes of forming pottery (e.g. how to mold a curved surface, a flat surface, long pointy things). In this course, we are going to learn the basic strokes of statistics, and compose those strokes to make shapes you've seen before (e.g. a t-test), some shapes you've probably never seen before, and develop ideas how you would make new shapes if you needed to. We won't learn *what tests apply to what data types* but instead foster the ability to reason through data analysis. We will do this through the lens of Bayesian statistics, though the basic ideas will aid your understanding of classical (frequentist) statistics as well.
-
-
-
-## Chapters
-
-{% assign sorted_pages = site.pages | sort:"name" %}
-
-{% for p in sorted_pages %}
-    {% if p.hidden %}
-    {% else %}
-        {% if p.layout == 'chapter' %}
-1. **<a class="chapter-link" href="{{ site.baseurl }}{{ p.url }}">{{ p.title }}</a>**<br>
-        <em>{{ p.description }}</em>
-        {% endif %}
-    {% endif %}
-{% endfor %}
-
-## Appendix
-
-{% assign sorted_pages = site.pages | sort:"name" %}
-
-{% for p in sorted_pages %}
-    {% if p.hidden %}
-    {% else %}
-        {% if p.layout == 'appendix' %}
-1. **<a class="chapter-link" href="{{ site.baseurl }}{{ p.url }}">{{ p.title }}</a>**<br>
-        <em>{{ p.description }}</em>
-        {% endif %}
-    {% endif %}
-{% endfor %}
+In the code above, the scenario is run 20,000 times in total, 10,000 where we keep our first door choice every time, and 10,000 where we switch doors every time. As can be seen by the results, this supports our calculated probabilities: if you switch your chances of winning are actually higher. 
 
 ## Citation
 
