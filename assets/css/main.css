@@ -76,6 +76,11 @@ a {
     color: rgba(0,0,0,0.8);
 }
 
+.icons-credit {
+    color: #fff;
+    font-size: 1px;
+}
+
 .page-content .CodeMirror-lines, .page-content .wpedit .result {
     padding: 5px;
     line-height: 18px;
@@ -135,3 +140,14 @@ blockquote {
     width: 100%;
 }
 
+@media only screen and (max-width: 700px) {
+    .site-header {
+        padding: 6vh 10vw;
+    }
+    .site-title {
+        font-size: 64px;
+    }
+    .page-content-wrapper, .contents-wrapper {
+        margin: 0 10vw;
+    }
+}

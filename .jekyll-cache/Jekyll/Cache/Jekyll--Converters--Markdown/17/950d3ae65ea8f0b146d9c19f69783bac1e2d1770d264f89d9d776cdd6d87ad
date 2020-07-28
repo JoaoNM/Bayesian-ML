@@ -1,90 +1,4 @@
-<!DOCTYPE html>
-<html>
-
-  <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bayesian Machine Learning</title>
-  <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
-  <link rel="stylesheet" href="/bdappl/assets/css/main.css">
-  <link rel="stylesheet" href="/bdappl/assets/css/code.css">
-  <!-- Katex Script -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;700;900&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=PT+Serif:ital@1&display=swap" rel="stylesheet">
-
-  <!-- Font awesome -->
-  <script src="https://kit.fontawesome.com/cacf8b09c4.js" crossorigin="anonymous"></script>
-
-  <link rel="canonical" href="http://localhost:4000/bdappl/">
-  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script>
-  <script src="/bdappl/assets/js/parse-bibtex.js"></script>
-  <script src="/bdappl/assets/js/main.js"></script>
-
-  <script src="https://s3-us-west-2.amazonaws.com/cdn.webppl.org/webppl-editor-1.0.9.js"></script>
-  <link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/cdn.webppl.org/webppl-editor-1.0.9.css">
-
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async
-            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
-    </script>
-
-
-  <script src="https://s3-us-west-2.amazonaws.com/cdn.webppl.org/webppl-viz-0.7.11.js"></script>
-  <link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/cdn.webppl.org/webppl-viz-0.7.11.css">
-  <!-- <link rel="stylesheet" href="http://127.0.0.1:8888/home/wp/viz/demo/webppl-viz.css"> -->
-  <!-- <script src="http://127.0.0.1:8888/home/wp/viz/demo/webppl-viz.js"></script> -->
-
-  <script src="https://s3-us-west-2.amazonaws.com/cdn.webppl.org/webppl-v0.9.13.js"></script>
-</head>
-
-  <body>
-
-    <header class="site-header">
-  <a class="site-title">Bayesian <span>Machine Learning</span></a>
-</header>
-
-
-    <ul class="contents-wrapper">
-    <a href="#bayesian-probabilities-an-introduction">Bayesian Probabilities: An Introduction</a>
-    <ul>
-      <a href="#basic-notation-and-terminology">Basic Notation and Terminology</a>
-      <ul>
-        <a href="#notation">Notation</a>
-        <li><a href="#terminology">Terminology</a></li>
-        <li><a href="#random-variable">Random Variable</a></li>
-      </ul>
-      <li><a href="#bayes-theorem">Bayes Theorem</a></li>
-      <ul>
-        <li><a href="#important-note">Important Note</a></li>
-        <li><a href="#putting-it-together">Putting It Togehter</a></li>
-      </ul>
-    </ul>
-    <li><a href="#the-monty-hall-problem">The Monty Hall Problem</a></li>
-    <ul>
-      <a href="#introduction">Introduction</a>
-      <li><a href="#manual-approach">Manual Approach</a></li>
-      <ul>
-        <li><a href="#modeling-the-problem">Modeling the Problem</a></li>
-        <li><a href="#applying-bayes-theorem">Applying Bayes Theorem</a></li>
-      </ul>
-      <li><a href="#naive-monte-carlo-approach">Naive Monte Carlo Approach</a></li>
-      <li><a href="#using-webppl">Using WebPPL</a></li>
-      <ul>
-          <li><a href="#no-wlog">No WLOG</a></li>
-          <li><a href="#wlog">WLOG</a></li>
-      </ul>
-    </ul>
-    <li><a href="#citation">Citation</a></li>
-    <li><a href="#useful-references">Useful References</a></li>
-</ul>
-
-    <div class="page-content-wrapper">
-      <div class="page-content">
-        <h1 id="bayesian-probabilities-an-introduction">Bayesian Probabilities: An Introduction</h1>
+I"�p<h1 id="bayesian-probabilities-an-introduction">Bayesian Probabilities: An Introduction</h1>
 
 <p>Bayesian probability is a field within the larger field of <a href="https://en.wikipedia.org/wiki/Bayesian_statistics">Bayesian statistics</a> where 
 probability is expressed as a degree of certainty that a particular event will take place. The particular difference in Bayesian probability compared to <a href="https://en.wikipedia.org/wiki/Frequentist_probability">frequentist probability</a> (the more well known approach) is that when calculating probabilities with Bayesian models, we can update our probabilites when a particular event occurs. In more intuitive terms, when we have an event, and we want to calculate its probability, intuitively, we will try to factor in different variables that may affect the likelihood of that event happening; when one of these variables may change, our initial probability may also therefore change - Bayesian models help us do this mathematically. This is best put by some <a href="https://www.stat.auckland.ac.nz/~brewer/stats331.pdf">great lecture notes</a> I found on Bayesian statistics:</p>
@@ -97,10 +11,10 @@ probability is expressed as a degree of certainty that a particular event will t
 
 <h3 id="notation">Notation</h3>
 
-<p>There is some basic terminology and notation worth keeping in mind for this project. Firstly, when refereing to the probability of a certain event occuring, it will be expressed as \(P(A)\) where \(A\) is the event.The probability of \(A\) not happening is therefore expressed as \(P(\overline{A})\) (this is the complement of the set \(A\), in other words, anything but \(A\))</p>
+<p>There is some basic terminology and notation worth keeping in mind for this project. Firstly, when refereing to the probability of a certain event occuring, it will be expressed as \(P\ (A)\) where \(A\) is the event.The probability of \(A\) not happening is therefore expressed as \(P\ (\overline{A})\) (this is the complement of the set \(A\), in other words, anything but \(A\))</p>
 
 <blockquote>
-\[P(A) = 1 - P(\overline{A})\]
+\[P\ (A) = 1 - P\ (\overline{A})\]
 </blockquote>
 
 <p>Here’s an <a href="https://www.thoughtco.com/prove-the-complement-rule-3126554">article</a> on the proof for this expression. It is also worth noting that probabilities are expressed as sets; using the example above, \(A\) is a particular set.</p>
@@ -108,50 +22,33 @@ probability is expressed as a degree of certainty that a particular event will t
 <p>There are two axioms of \(P\); the first one is the following:</p>
 
 <blockquote>
-\[P(\Omega) = 1\]
+\[P\ (\Omega) = 1\]
 </blockquote>
 
-<p>More about \(\Omega\) below. The second is that \(P\) preserves disjoint unions:</p>
+<p>More about \(\Omega\) below.</p>
 
 <blockquote>
-\[P(A \sqcup B) = P(A) + P(B)\]
-</blockquote>
-
-<p>In more genral terms:</p>
-
-<blockquote>
-\[P(\sqcup_{i\in\mathbb{N}} Ai) = \sum_{i\in\mathbb{N}} P(Ai)\]
-</blockquote>
-
-<p>However, note the subtle difference between \(\sqcup\) and \(\cup\):</p>
-
-<blockquote>
-\[P(A \sqcup B) = P(A) + P(B) \therefore A \cap B = \emptyset\]
-</blockquote>
-
-<blockquote>
-\[P(A \cup B) = P(A) + P(B) - P(A\cap B)\]
+\[P\ (A \sqcup B) = P\ (A) + P\ (B)\]
 </blockquote>
 
 <p>The probability of both happening would be the <em>intersection</em> of both events; the intersection of both <em>sets</em>. This is expressed as such:</p>
 
 <blockquote>
-\[P(A \cap B)\]
+\[P\ (A \cap B)\]
 </blockquote>
 
 <p>The probability of \(A\) happening <em>given that</em> \(B\) has occured, is expressed like so:</p>
 
 <blockquote>
-\[P(A \mid B)\]
+\[P\ (A \mid B)\]
 </blockquote>
 
-<p>In any particular scenario all possible outcomes are in the \(\Omega\) (capital <em>omega</em>) set. If we build on the aforementioned example, we may have three possible outcomes: \(A\), \(B\) and \(C\) (all <em>elements</em> of \(\Omega\)).</p>
+<p>In any particular scenario all possible outcomes are in the \(\Omega\) (capital <em>omega</em>) set. This is also known as the <em>probability space</em>. If we build on the aforementioned example, 
+we may have three possible outcomes: \(A\), \(B\) and \(C\) (all <em>elements</em> of \(\Omega\)).</p>
 
 <blockquote>
 \[\therefore \Omega = \{A, B, C\}\]
 </blockquote>
-
-<p>As mentioned earlier, \(P(\Omega)\) must always be \(=1\) (any event that occurs is part of \(\Omega\) therefore \(P(\Omega)\) is inherently certain).</p>
 
 <p>\(\sum\) (<em>sigma algebra</em>) set, is also known as the sigma-field. The sigma-field refers to the subsets of a particular probability space used to mathematically define probability (great article on sigma-field <a href="https://www.thoughtco.com/sigma-field-3126572">here</a>). \(\sum\) is a subset of the powerset of \(\Omega\), and remains closed (stable) under comlpements and countable unions</p>
 
@@ -186,35 +83,31 @@ probability is expressed as a degree of certainty that a particular event will t
 </blockquote>
 
 <h3 id="terminology">Terminology</h3>
-<p>In Bayesian probability, there are certain terms often used to refer to particular elements in a problem/scenario. Firstly, there are <em>priors</em>, which refer to our probabilities at the start of a problem. There probabilities are the probabilites before any updates or changes have been made (e.g. \(P(A)\)).</p>
+<p>In Bayesian probability, there are certain terms often used to refer to particular elements in a problem/scenario. Firstly, there are <em>priors</em>, which refer to our probabilities at the start of a problem. There probabilities are the probabilites before any updates or changes have been made (e.g. \(P\ (A)\)).</p>
 
-<p>Once these probabilities are updated with new information, using Bayesain models, they become known as <em>postereior</em> probabilities (e.g. \(P(A \mid B)\)).</p>
-
-<h3 id="random-variable">Random Variable</h3>
-
-<p>A ‘random variable’ \(X\) is a function \(X:\Omega \rightarrow S\)</p>
+<p>Once these probabilities are updated with new information, using Bayesain models, they become known as <em>postereior</em> probabilities (e.g. \(P\ (A \mid B)\)).</p>
 
 <h2 id="bayes-theorem">Bayes Theorem</h2>
 
 <p>Bayes Theorem is used to update our prior probabilities with new information, in particular, knowing that a particular event has occured. This is extremely powerful as most probabilities are dependent on other events occuring.</p>
 
 <h3 id="important-note">Important Note</h3>
-<p>In typical (basic) textbooks, probability is merely a ratio, and when calculating the probability of two events <em>both</em> happening (\(P(A \cap B)\)), both probabilities (\(P(A)\) and \(P(B)\)) are multiplied together; this implicitly assumes that both events are completely independent and the occurence of \(B\) will not affect \(P(A)\) <em>at all</em>. For example, this might be something like flipping a coin and getting heads, and then rolling a dice and getting six. However, this typically only happens in text books, and in real world use cases, the occurence of one event affects the probability that the other will also happen.</p>
+<p>In typical (basic) textbooks, probability is merely a ratio, and when calculating the probability of two events <em>both</em> happening (\(P\ (A \cap B)\)), both probabilities (\(P\ (A)\) and \(P\ (B)\)) are multiplied together; this implicitly assumes that both events are completely independent and the occurence of \(B\) will not affect \(P\ (A)\) <em>at all</em>. For example, this might be something like flipping a coin and getting heads, and then rolling a dice and getting six. However, this typically only happens in text books, and in real world use cases, the occurence of one event affects the probability that the other will also happen.</p>
 
 <blockquote>
-\[P(A \cap B) = P(A \mid B) \times P(B)\]
+\[P\ (A \cap B) = P\ (A \mid B) \times P\ (B)\]
 </blockquote>
 
-<p>This is true because we have accounted for the change in \(P(A)\) if \(B\) has also occured</p>
+<p>This is true because we have accounted for the change in \(P\ (A)\) if \(B\) has also occured</p>
 
 <blockquote>
-\[(P(A \cap B) = P(A) \times P(B))\]
+\[(P\ (A \cap B) = P\ (A) \times P\ (B))\]
 </blockquote>
 
 <p>This is only true when the events are completely independent; when:</p>
 
 <blockquote>
-\[P(A \cap B) = P(A)\]
+\[P\ (A \cap B) = P\ (A)\]
 </blockquote>
 
 <h3 id="putting-it-together">Putting It Together</h3>
@@ -232,50 +125,50 @@ probability is expressed as a degree of certainty that a particular event will t
 \[D,\ H\in\sum\]
 </blockquote>
 
-<p>In words, \(P(H)\) is the probability that our hypothesis about a given situation is correct, and \(P(D)\) is the probability of finding a certain piece of data; making a particular observation for example. With this in mind, as well as what has been mentioned above, we can put together the theorem:</p>
+<p>In words, \(P\ (H)\) is the probability that our hypothesis about a given situation is correct, and \(P\ (D)\) is the probability of finding a certain piece of data; making a particular observation for example. With this in mind, as well as what has been mentioned above, we can put together the theorem:</p>
 
 <blockquote>
-\[P(H \cap D) = P(D \cap H)\]
+\[P\ (H \cap D) = P\ (D \cap H)\]
 </blockquote>
 
 <blockquote>
-\[P(D \cap H) = P(D \mid H)\times P(H)\]
+\[P\ (D \cap H) = P\ (D \mid H)\times P\ (H)\]
 </blockquote>
 
 <blockquote>
-\[P(H \cap D) = P(H \mid D)\times P(D)\]
+\[P\ (H \cap D) = P\ (H \mid D)\times P\ (D)\]
 </blockquote>
 
 <blockquote>
-\[\therefore P(H \mid D)\times P(D) = P(D \mid H)\times P(H)\]
+\[\therefore P\ (H \mid D)\times P\ (D) = P\ (D \mid H)\times P\ (H)\]
 </blockquote>
 
 <blockquote>
-\[\therefore P(H \mid D) = \\{\\{P(D \mid H)\times P(H)\\}\over P(D)\\}\ \ \ \ \rightarrow\ \ \ Bayes\ Theorem\]
+\[\therefore P\ (H \mid D) = \\{\\{P\ (D \mid H)\times P\ (H)\\}\over P\ (D)\\}\ \ \ \ \rightarrow\ \ \ Bayes\ Theorem\]
 </blockquote>
 
 <p>The first statement demostrates a property known as <em>commutativity</em>, where an operator (in this case \(\cap\)) applied to the second term results in the same outcome as if it was the second term operating on the first. Additionally, this theorem is only applicable when</p>
 
 <blockquote>
-\[P(D) \neq 0\]
+\[P\ (D) \neq 0\]
 </blockquote>
 
 <p>We can now apply some terminology to the theorem:</p>
 
 <blockquote>
-\[P(H)\ \ \ \ \rightarrow\ \ \ Prior\]
+\[P\ (H)\ \ \ \ \rightarrow\ \ \ Prior\]
 </blockquote>
 
 <blockquote>
-\[P(H \mid D)\ \ \ \ \rightarrow\ \ \ Posterior\]
+\[P\ (H \mid D)\ \ \ \ \rightarrow\ \ \ Posterior\]
 </blockquote>
 
 <blockquote>
-\[P(D \mid H)\ \ \ \ \rightarrow\ \ \ Likelihood\]
+\[P\ (D \mid H)\ \ \ \ \rightarrow\ \ \ Likelihood\]
 </blockquote>
 
 <blockquote>
-\[P(D)\ \ \ \ \rightarrow\ \ \ Normalising\ Factor\]
+\[P\ (D)\ \ \ \ \rightarrow\ \ \ Normalising\ Factor\]
 </blockquote>
 
 <p>As one might notice, a little bit of new terminology has been brought up: the <em>likelihood</em> and the <em>normalising factor</em>. The likelihood 
@@ -313,19 +206,19 @@ The normalising factor ensures the final calculated value is within the range 0-
 <p>We can now define the problem as such:</p>
 
 <blockquote>
-\[P(C \mid D_2)\ \ \ \ vs\ \ \ \ P(\overline{C} \mid D_2)\]
+\[P\ (C \mid D_2)\ \ \ \ vs\ \ \ \ P\ (\overline{C} \mid D_2)\]
 </blockquote>
 
 <p>The first expression addresses the probability that our first choice is right, given that Monty has opened the second door, and the second expression addresses the probability the car is not behind the door that we picked, and is therefore in the other door. If the value of the first expression is greater than the second, we should keep our choice and stay on our door, whereas if the value of the second expression is greater, we should switch doors.</p>
 
-<p>All we need to find is \(P(C \mid D_2)\) because we know that \(P(C \mid D_2) + P( \overline C \mid D_2) = 1\).</p>
+<p>All we need to find is \(P\ (C \mid D_2)\) because we know that \(P\ (C \mid D_2) + P\ ( \overline C \mid D_2) = 1\).</p>
 
 <h3 id="applying-bayes-theorem">Applying Bayes Theorem</h3>
 
 <p>Having modeled the situation appropriately, we can now proceed to solve the problem (manually). Firstly, in terms of Bayes Theorem:</p>
 
 <blockquote>
-\[P(C \mid D_2) = \\{\\{P(D_2 \mid C)\times P(C)}\over P(D_2)}\]
+\[P\ (C \mid D_2) = \\{\\{P\ (D_2 \mid C)\times P\ (C)}\over P\ (D_2)}\]
 </blockquote>
 
 <p>We should also establish priors:</p>
@@ -336,16 +229,16 @@ The normalising factor ensures the final calculated value is within the range 0-
 
 <p>Now we can compute everything. In this case, the likelihood is the probability that Monty will open the second door (\(D_2\)), <em>given that</em> we have picked the right door on our first try and the car is behind the door we chose (given \(C\)). This means both \(D_2\) and \(D_3\) will have goats, so Monty has an equal chance of picking either door; therefore the likelihood is \(1\over2\).</p>
 
-<p>The prior must be \(1\over3\) because there are three doors and the car could be behind any of them, so \(P(C) = {1\over3}\)</p>
+<p>The prior must be \(1\over3\) because there are three doors and the car could be behind any of them, so \(P\ (C) = {1\over3}\)</p>
 
-<p>Calculating the normalising factor directly in this example is a little bit complicated, but done manually it can be broken down to make it easier. We can break \(P(D_2)\) down into the following:</p>
+<p>Calculating the normalising factor directly in this example is a little bit complicated, but done manually it can be broken down to make it easier. We can break \(P\ (D_2)\) down into the following:</p>
 
 <blockquote>
-\[P(D_2) = P(D_2 \cap C) + P(D_2 \cap \overline{C})\]
+\[P\ (D_2) = P\ (D_2 \cap C) + P\ (D_2 \cap \overline{C})\]
 </blockquote>
 
 <blockquote>
-\[= P(D_2 \cap C) + P(D_2 \cap C_2) + P(D_2 \cap C_3)\]
+\[= P\ (D_2 \cap C) + P\ (D_2 \cap C_2) + P\ (D_2 \cap C_3)\]
 </blockquote>
 
 <p>For the purpose of this example, we’re breaking \(\overline C\) into \(C_2\) and \(C_3\), which represent the car being behind the second and third door, respectively. This is done to make things easier to calculate.</p>
@@ -353,22 +246,22 @@ The normalising factor ensures the final calculated value is within the range 0-
 <p>Keeping in mind what was explained above, these can then be further broken down like so:</p>
 
 <blockquote>
-\[P(D_2 \cap C) = P(D_2 \mid C) \times P(C)\]
+\[P\ (D_2 \cap C) = P\ (D_2 \mid C) \times P\ (C)\]
 </blockquote>
 
 <blockquote>
-\[P(D_2 \cap C_2) = P(D_2 \mid C_2) \times P(C_2)\]
+\[P\ (D_2 \cap C_2) = P\ (D_2 \mid C_2) \times P\ (C_2)\]
 </blockquote>
 
 <blockquote>
-\[P(D_2 \cap C_3) = P(D_2 \mid C_3) \times P(C_3)\]
+\[P\ (D_2 \cap C_3) = P\ (D_2 \mid C_3) \times P\ (C_3)\]
 </blockquote>
 
-<p>For the first expression, we know that \(P(D_2 \mid C)\) is \(1\over2\) because if we pick the first door and correctly guess that it has the car behind it, Monty may open either the second or third door because they will both have goats. We also know that \(P(C)\) is \(1\over3\) as it is one of our priors, therefore we are left with a final value of \(1\over6\)</p>
+<p>For the first expression, we know that \(P\ (D_2 \mid C)\) is \(1\over2\) because if we pick the first door and correctly guess that it has the car behind it, Monty may open either the second or third door because they will both have goats. We also know that \(P\ (C)\) is \(1\over3\) as it is one of our priors, therefore we are left with a final value of \(1\over6\)</p>
 
-<p>Taking a look at the second expression, we can deduce the value of \(P(D_2 \mid C_2)\) by thinking about the situation: what is the chance Monty will open the second door if the car is behind the second door? 0, as Monty will never reveal the door with the car behind it. Therefore the value for the second expression is left at 0.</p>
+<p>Taking a look at the second expression, we can deduce the value of \(P\ (D_2 \mid C_2)\) by thinking about the situation: what is the chance Monty will open the second door if the car is behind the second door? 0, as Monty will never reveal the door with the car behind it. Therefore the value for the second expression is left at 0.</p>
 
-<p>Looking at the third and last expression, we can deduce the value of \(P(D_2 \mid C_3)\) will be 1 because if the car is behind the third door, and Monty must not reveal the car, and we’ve picked the first door, Monty has no choice but to open the second door to reveal a goat. This is multiplied by \(1\over3\) which is the initial probability of the car being behind the third door. This leaves us with a final value of \(1\over3\).</p>
+<p>Looking at the third and last expression, we can deduce the value of \(P\ (D_2 \mid C_3)\) will be 1 because if the car is behind the third door, and Monty must not reveal the car, and we’ve picked the first door, Monty has no choice but to open the second door to reveal a goat. This is multiplied by \(1\over3\) which is the initial probability of the car being behind the third door. This leaves us with a final value of \(1\over3\).</p>
 
 <p>Now, adding all these values togehter, we find that:</p>
 
@@ -379,15 +272,15 @@ The normalising factor ensures the final calculated value is within the range 0-
 <p>We now have all the values we need, and can substitute everything into the formula:</p>
 
 <blockquote>
-\[P(C \mid D_2) = \\{\\{1\over2} \times {1\over3}\over{1\over2}} = {1\over3}\]
+\[P\ (C \mid D_2) = \\{\\{1\over2} \times {1\over3}\over{1\over2}} = {1\over3}\]
 </blockquote>
 
 <blockquote>
-\[P(\overline{C} \mid D_2) = 1 - {1\over3} = {2\over3}\]
+\[P\ (\overline{C} \mid D_2) = 1 - {1\over3} = {2\over3}\]
 </blockquote>
 
 <blockquote>
-\[\therefore\ \ P(\overline{C} \mid D_2)\ \ &gt;\ \ P(C \mid D_2)\]
+\[\therefore\ \ P\ (\overline{C} \mid D_2)\ \ &gt;\ \ P\ (C \mid D_2)\]
 </blockquote>
 
 <p>Seeing as this is the case, according to probability theory, switching doors is the best strategy.</p>
@@ -538,23 +431,4 @@ viz(Infer(MontyHall))
   <li><a href="http://www.stat.columbia.edu/~gelman/book/">Bayesian Data Analysis</a> (Gelman)</li>
   <li><a href="https://bayesmodels.com">Bayesian Cognitive Modeling</a> (Lee &amp; Wagenmakers)</li>
 </ul>
-
-      </div>
-    </div>
-
-    <a href="#"><i class="fas fa-arrow-up scroll-top"></i></a>
-    <img src=/bdappl/assets/img/up-arrow.svg" alt="arrow up" />
-
-    <footer class="site-footer">
-  <a href="https://github.com/JoaoNM/Bayesian-ML" id="github-edit-link">Edit on Github</a>
-</footer>
-
-<script type="text/javascript">
-  $("#github-edit-link").attr("href", github_page_url("/"))
-</script>
-
-
-    <div class="icons-credit">Icons made by <a href="https://www.flaticon.com/authors/pixel-perfect" title="Pixel perfect">Pixel perfect</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
-  </body>
-
-</html>
+:ET
