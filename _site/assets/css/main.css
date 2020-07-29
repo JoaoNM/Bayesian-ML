@@ -76,11 +76,6 @@ a {
     color: rgba(0,0,0,0.8);
 }
 
-.icons-credit {
-    color: #fff;
-    font-size: 1px;
-}
-
 .page-content .CodeMirror-lines, .page-content .wpedit .result {
     padding: 5px;
     line-height: 18px;

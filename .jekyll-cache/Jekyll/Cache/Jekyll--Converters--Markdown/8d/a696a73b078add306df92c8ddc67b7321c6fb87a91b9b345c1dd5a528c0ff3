@@ -1,96 +1,4 @@
-<!DOCTYPE html>
-<html>
-
-  <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bayesian Machine Learning</title>
-  <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
-  <link rel="stylesheet" href="/bdappl/assets/css/main.css">
-  <link rel="stylesheet" href="/bdappl/assets/css/code.css">
-  <!-- Katex Script -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;700;900&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=PT+Serif:ital@1&display=swap" rel="stylesheet">
-
-  <!-- Font awesome -->
-  <script src="https://kit.fontawesome.com/cacf8b09c4.js" crossorigin="anonymous"></script>
-
-  <link rel="canonical" href="http://localhost:4000/bdappl/">
-  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script>
-  <script src="/bdappl/assets/js/parse-bibtex.js"></script>
-  <script src="/bdappl/assets/js/main.js"></script>
-
-  <script src="https://s3-us-west-2.amazonaws.com/cdn.webppl.org/webppl-editor-1.0.9.js"></script>
-  <link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/cdn.webppl.org/webppl-editor-1.0.9.css">
-
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async
-            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
-    </script>
-
-
-  <script src="https://s3-us-west-2.amazonaws.com/cdn.webppl.org/webppl-viz-0.7.11.js"></script>
-  <link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/cdn.webppl.org/webppl-viz-0.7.11.css">
-  <!-- <link rel="stylesheet" href="http://127.0.0.1:8888/home/wp/viz/demo/webppl-viz.css"> -->
-  <!-- <script src="http://127.0.0.1:8888/home/wp/viz/demo/webppl-viz.js"></script> -->
-
-  <script src="https://s3-us-west-2.amazonaws.com/cdn.webppl.org/webppl-v0.9.13.js"></script>
-</head>
-
-  <body>
-
-    <header class="site-header">
-  <a class="site-title">Bayesian <span>Machine Learning</span></a>
-</header>
-
-
-    <ul class="contents-wrapper">
-    <a href="#bayesian-probabilities-an-introduction">Bayesian Probabilities: An Introduction</a>
-    <ul>
-      <a href="#basic-notation-and-terminology">Basic Notation and Terminology</a>
-      <ul>
-        <a href="#notation">Notation</a>
-        <li><a href="#terminology">Terminology</a></li>
-        <li><a href="#random-variable">Random Variable</a></li>
-    </ul>
-        <li><a href="#probability-distributions">Probability Distributions</a></li>
-        <ul>
-            <li><a href="#uniform-law">Uniform Law</a></li>
-            <li><a href="#bernoulli-law">Bernoulli Law</a></li>
-            <li><a href="#binomial-law">Binomial Law</a></li>
-        </ul>
-        <li><a href="#bayes-theorem">Bayes Theorem</a></li>
-      <ul>
-        <li><a href="#important-note">Important Note</a></li>
-        <li><a href="#putting-it-together">Putting It Togehter</a></li>
-      </ul>
-    </ul>
-    <li><a href="#the-monty-hall-problem">The Monty Hall Problem</a></li>
-    <ul>
-      <a href="#introduction">Introduction</a>
-      <li><a href="#manual-approach">Manual Approach</a></li>
-      <ul>
-        <li><a href="#modeling-the-problem">Modeling the Problem</a></li>
-        <li><a href="#applying-bayes-theorem">Applying Bayes Theorem</a></li>
-      </ul>
-      <li><a href="#naive-monte-carlo-approach">Naive Monte Carlo Approach</a></li>
-      <li><a href="#using-webppl">Using WebPPL</a></li>
-      <ul>
-          <li><a href="#no-wlog">No WLOG</a></li>
-          <li><a href="#wlog">WLOG</a></li>
-      </ul>
-    </ul>
-    <li><a href="#citation--credit">Citation & Credit</a></li>
-    <li><a href="#useful-references">Useful References</a></li>
-</ul>
-
-    <div class="page-content-wrapper">
-      <div class="page-content">
-        <h1 id="bayesian-probabilities-an-introduction">Bayesian Probabilities: An Introduction</h1>
+I"E|<h1 id="bayesian-probabilities-an-introduction">Bayesian Probabilities: An Introduction</h1>
 
 <p>Bayesian probability is a field within the larger field of <a href="https://en.wikipedia.org/wiki/Bayesian_statistics">Bayesian statistics</a> where 
 probability is expressed as a degree of certainty that a particular event will take place. The particular difference in Bayesian probability compared to <a href="https://en.wikipedia.org/wiki/Frequentist_probability">frequentist probability</a> (the more well known approach) is that when calculating probabilities with Bayesian models, we can update our probabilites when a particular event occurs. In more intuitive terms, when we have an event, and we want to calculate its probability, intuitively, we will try to factor in different variables that may affect the likelihood of that event happening; when one of these variables may change, our initial probability may also therefore change - Bayesian models help us do this mathematically. This is best put by some <a href="https://www.stat.auckland.ac.nz/~brewer/stats331.pdf">great lecture notes</a> from the University of Auckland:</p>
@@ -274,7 +182,7 @@ probability is expressed as a degree of certainty that a particular event will t
 \[L_x : K \mapsto P(X=K) = {1 \over{|S|} }\]
 </blockquote>
 
-<p>This represents the uniformly distributed probability accross all possible outcomes.</p>
+<p>Since \(\|S\|\) represents the number of elements in set \(S\), this simply means that the probability is uniformly distributed accross all possible outcomes.</p>
 
 <h3 id="bernoulli-law">Bernoulli Law</h3>
 
@@ -297,36 +205,6 @@ probability is expressed as a degree of certainty that a particular event will t
 <blockquote>
 \[P(X = false) = 1 - p\]
 </blockquote>
-
-<h3 id="binomial-law">Binomial Law</h3>
-
-<p>This builds on the previous Bernoulli law, instead throwing \(n\) independent coin tosses, counting the <em>number of successes</em></p>
-
-<blockquote>
-\[X \sim B(p, n)\]
-</blockquote>
-
-<p>where \(p \in [0,1]\) is the probability of getting ‘true’ on the coin toss, and \(n \in \mathbb{N}\) is the number of trials done.</p>
-
-<blockquote>
-\[\forall K \in \mathbb{N}, P(X=K) = {n\choose K} p^K (1-p)^{n-k}\]
-</blockquote>
-
-<p>Note on the \({n\choose\ k}\) notation :</p>
-
-<blockquote>
-\[{n\choose K} = { n! \over{ (n-K)!K! } }\]
-</blockquote>
-
-<p>Another note; if \(X \sim B(p, n)\), then \(X = X_1 + ... + X_n\) where:</p>
-
-<blockquote>
-\[\forall i, X i \sim B(p)\]
-</blockquote>
-
-<p>\(\forall i, X i\) are all <em>I.I.D.</em> variables: independent identically distributed</p>
-
-<p>Upon these basic laws, other much more complex laws are built, such as the geometric law, Poisson law and multinomial laws.</p>
 
 <h2 id="bayes-theorem">Bayes Theorem</h2>
 
@@ -620,44 +498,56 @@ viz(Infer(MontyHall))
 viz(Infer(MontyHall))
 </code></pre></div></div>
 
-<h1 id="citation--credit">Citation &amp; Credit</h1>
+<h1 id="application">Application</h1>
 
-<p>J. L. Nina Matos (2020, July 25). <em>Bayesian Machine Learning</em>. Retrieved <span class="date"></span> from https://bayesian-ml.netlify.app/</p>
+<h1 id="citation">Citation</h1>
 
-<hr />
-<p>This was written by me, Joao Lucas Nina Matos, you can read more about me on my <a href="https://joao-lucas.com">website</a>. Additionally, much credit must also be given to Younesse Kaddar, who acted as my tutor for this project; a truly great one at that. He also has <a href="https://younesse.net">his own website</a>.</p>
-
-<p>You can also find the repository for this project <a href="https://github.com/JoaoNM/Bayesian-ML">on github</a>.</p>
+<p>M. H. Tessler (in prep). <em>Bayesian data analysis: An introduction using probabilistic programs</em>. Retrieved <span class="date"></span> from https://mhtess.github.io/bdappl/</p>
 
 <h1 id="useful-references">Useful References</h1>
 
+<h2 id="webppl-support-and-packages">WebPPL support and packages</h2>
+
 <ul>
-  <li><a href="http://webppl.org">Webppl.org</a>: online editor for WebPPL</li>
+  <li><a href="http://webppl.org">webppl.org</a>: An online editor for WebPPL</li>
   <li><a href="http://webppl.readthedocs.io/en/master/">WebPPL documentation</a></li>
   <li><a href="https://groups.google.com/forum/?utm_medium=email&amp;utm_source=footer#!forum/webppl-dev">WebPPL dev Google Group</a>: Public forum for discussing issues with WebPPL</li>
   <li><a href="http://probmods.github.io/webppl-viz/">WebPPL-viz</a>: A summary of the vizualization options in WebPPL</li>
-  <li><a href="https://github.com/mhtess/rwebppl">RWebPPL</a>: use WebPPL with R</li>
+  <li><a href="https://github.com/mhtess/rwebppl">RWebPPL</a>: If you would rather use WebPPL within R</li>
   <li>WebPPL <a href="http://webppl.readthedocs.io/en/dev/packages.html">packages</a> (e.g. csv, json, fs).</li>
-  <li><a href="https://mhtess.github.io/bdappl/">Bayesian Data Analysis using Probabilistic Programs</a></li>
-  <li><a href="http://www.problang.org/chapters/app-04-BDA.html">BDA of Bayesian language models</a></li>
-  <li><a href="http://probmods.org/">Probabilistic Models of Cognition</a>: An introduction to computational cognitive science and the probabilistic programming language WebPPL</li>
-  <li><a href="http://problang.org">Probabilistic Language Understanding</a>: An introduction to probabilistic models of language (in particular, the Rational Speech Act theory)</li>
+  <li><a href="https://github.com/mhtess/webppl-bda">A WebPPL package with useful BDA helper functions</a></li>
 </ul>
 
-      </div>
-    </div>
+<h2 id="basic-webppl-tutorials">Basic WebPPL tutorials</h2>
 
-    <a href="#"><i class="fas fa-arrow-up scroll-top"></i></a>
+<ul>
+  <li><a href="http://dippl.org/chapters/02-webppl.html">WebPPL intro from DIPPL</a>.</li>
+  <li><a href="http://agentmodels.org/chapters/2-webppl.html">WebPPL intro from AgentModels</a>.</li>
+</ul>
 
-    <footer class="site-footer">
-  <a href="https://github.com/JoaoNM/Bayesian-ML" id="github-edit-link">Edit on Github</a>
-</footer>
+<h2 id="bayesian-data-analysis-using-webppl">Bayesian Data Analysis (using WebPPL)</h2>
 
-<script type="text/javascript">
-  $("#github-edit-link").attr("href", github_page_url("/"))
-</script>
+<ul>
+  <li><a href="http://www.problang.org/chapters/app-01-probability.html">Probabilities and Bayes Rule in WebPPL</a> by Michael Franke</li>
+  <li><a href="http://michael-franke.github.io/statistics,/modeling/2017/07/07/BF_computation.html">Comparing methods for computing Bayes Factors</a> by Michael Franke</li>
+  <li><a href="http://www.problang.org/chapters/app-04-BDA.html">BDA of Bayesian language models</a></li>
+  <li><a href="http://web.stanford.edu/class/psych201s/">Old BDA course syllabus</a> by MH Tessler</li>
+</ul>
 
+<h2 id="other-webppl-applications">Other WebPPL applications</h2>
 
-  </body>
+<ul>
+  <li><a href="http://probmods.org/">Probabilistic Models of Cognition</a>: An introduction to computational cognitive science and the probabilistic programming language WebPPL</li>
+  <li><a href="http://problang.org">Probabilistic Language Understanding</a>: An introduction to probabilistic models of language (in particular, the Rational Speech Act theory)</li>
+  <li><a href="http://agentmodels.org">Modeling Agents with Probabilistic Programs</a>: An introduction to formal models of rational agents using WebPPL</li>
+  <li><a href="http://forestdb.org">Forest</a>: A Repository for probabilistic models</li>
+</ul>
 
-</html>
+<h2 id="great-textbooks-on-bayesian-data-analysis">Great textbooks on Bayesian Data Analysis</h2>
+
+<ul>
+  <li><a href="https://sites.google.com/site/doingbayesiandataanalysis/">Doing Bayesian Data Analysis</a> (Kruschke)</li>
+  <li><a href="http://www.stat.columbia.edu/~gelman/book/">Bayesian Data Analysis</a> (Gelman)</li>
+  <li><a href="https://bayesmodels.com">Bayesian Cognitive Modeling</a> (Lee &amp; Wagenmakers)</li>
+</ul>
+:ET

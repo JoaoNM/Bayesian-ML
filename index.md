@@ -5,7 +5,7 @@ layout: default
 # Bayesian Probabilities: An Introduction
 
 Bayesian probability is a field within the larger field of [Bayesian statistics](https://en.wikipedia.org/wiki/Bayesian_statistics) where 
-probability is expressed as a degree of certainty that a particular event will take place. The particular difference in Bayesian probability compared to [frequentist probability](https://en.wikipedia.org/wiki/Frequentist_probability) (the more well known approach) is that when calculating probabilities with Bayesian models, we can update our probabilites when a particular event occurs. In more intuitive terms, when we have an event, and we want to calculate its probability, intuitively, we will try to factor in different variables that may affect the likelihood of that event happening; when one of these variables may change, our initial probability may also therefore change - Bayesian models help us do this mathematically. This is best put by some [great lecture notes](https://www.stat.auckland.ac.nz/~brewer/stats331.pdf) I found on Bayesian statistics:
+probability is expressed as a degree of certainty that a particular event will take place. The particular difference in Bayesian probability compared to [frequentist probability](https://en.wikipedia.org/wiki/Frequentist_probability) (the more well known approach) is that when calculating probabilities with Bayesian models, we can update our probabilites when a particular event occurs. In more intuitive terms, when we have an event, and we want to calculate its probability, intuitively, we will try to factor in different variables that may affect the likelihood of that event happening; when one of these variables may change, our initial probability may also therefore change - Bayesian models help us do this mathematically. This is best put by some [great lecture notes](https://www.stat.auckland.ac.nz/~brewer/stats331.pdf) from the University of Auckland:
 
 > "When we get new information, we should update our probabilities to take the new information into account. Bayesian methods tell us exactly how to do this."
 
@@ -17,7 +17,7 @@ There is some basic terminology and notation worth keeping in mind for this proj
 
 > $$P(A) = 1 - P(\overline{A})$$
 
-Here's an [article](https://www.thoughtco.com/prove-the-complement-rule-3126554) on the proof for this expression. It is also worth noting that probabilities are expressed as sets; using the example above, $$A$$ is a particular set. 
+Here's an [article](https://www.thoughtco.com/prove-the-complement-rule-3126554) on the proof for this expression. 
 
 There are two axioms of $$P$$; the first one is the following: 
 
@@ -76,7 +76,93 @@ Once these probabilities are updated with new information, using Bayesain models
 
 ### Random Variable 
 
-A 'random variable' $$X$$ is a function $$X:\Omega \rightarrow S$$
+A 'random variable' $$X$$ is a function $$X:\Omega \rightarrow S$$ going from a *probability space* ($$ \Omega\ ,\ \sum_\Omega\ ,\ P $$) to a measurable ($$S\ ,\ \sum_S $$) such that 
+
+> $$ \forall C \in \sum_S,X^{-1}[C] \in \sum_\Omega $$
+
+It's also worth noting the following probability law of $$X$$:
+
+> $$ \Omega \xrightarrow{\mathit{X}} S $$
+
+> $$ \sum_\Omega \xrightarrow{\mathit{P}} [0, 1] $$
+
+> $$ \sum_S \xrightarrow{\mathit{P\ '}} [0, 1] $$
+
+The following about $$P\ '$$ should also be mentioned: 
+
+> $$ P\ ' : C \mapsto P(X^{-1}[C]) $$
+
+> $$ X^{-1}[-] : \mathcal{P}(S) \to \mathcal{P}(\Omega) $$
+
+> $$ X^{-1}[C] \in \mathcal{P}(\Omega) $$
+
+But it only makes sense it find $$P(X^{-1}[C])$$ if $$X^{-1}[C]\in \sum_{\Omega}$$
+
+In probability theory, there are also expressions such as $$P(X=K)$$ that should be noted too:
+
+> $$ \forall K \in S,\ P(X=K) := P(X^{-1}[{ \{K\} }_{\in \sum_S}]) $$
+
+Note: 
+
+> $$ K \in S \therefore \{K\} \in \mathcal{P}(S) $$
+
+## Probability Distributions
+
+A probability distribution, sometimes known as a probability law, is a function that returns the likelihood of the occurence of different possible outcomes. 
+
+For example, the probability of law of $$X: \Omega \to S$$ will be the following: 
+
+> $$ L_x : S \to [0,1] $$
+
+> $$ L_x : K \mapsto P(X=K) $$
+
+Using this method we can describe the likelihood of different outcomes, some basic distribution examples are explained below.
+
+### Uniform Law 
+
+if $$ X : \Omega \to S$$, we say that $$X$$ follows a uniform law over $$S$$, denoted $$X \sim K(S)$$
+
+> $$ L_x : S \to [0,1] $$
+
+> $$ L_x : K \mapsto P(X=K) = {1 \over{|S|} } $$
+
+ This represents the uniformly distributed probability accross all possible outcomes. 
+
+### Bernoulli Law 
+
+This is essentially a coin toss. 
+
+> $$ S = \{ true, false\} \therefore X : \Omega \to \{true, false\}$$
+
+> $$ X \sim B(p) $$
+
+where $$p$$ is the probability of success $$\in [0,1]$$
+
+> $$ P(X = true) = p $$
+
+> $$ P(X = false) = 1 - p $$
+
+### Binomial Law 
+
+This builds on the previous Bernoulli law, instead throwing $$n$$ independent coin tosses, counting the *number of successes*
+
+> $$ X \sim B(p, n) $$
+
+where $$p \in [0,1]$$ is the probability of getting 'true' on the coin toss, and $$n \in \mathbb{N}$$ is the number of trials done. 
+
+> $$ \forall K \in \mathbb{N}, P(X=K) = {n\choose K} p^K (1-p)^{n-k} $$
+
+Note on the $${n\choose\ k}$$ notation :
+
+> $$ {n\choose K} = { n! \over{ (n-K)!K! } } $$
+
+Another note; if $$ X \sim B(p, n) $$, then $$ X = X_1 + ... + X_n $$ where:
+
+> $$ \forall i, X i \sim B(p) $$
+
+$$ \forall i, X i $$ are all *I.I.D.* variables: independent identically distributed 
+
+Upon these basic laws, other much more complex laws are built, such as the geometric law, Poisson law and multinomial laws.
 
 ## Bayes Theorem
 
@@ -313,45 +399,24 @@ var MontyHall = function () {
 viz(Infer(MontyHall))
 ~~~
 
-# Application
+# Citation & Credit
 
-# Citation
+J. L. Nina Matos (2020, July 25). *Bayesian Machine Learning*. Retrieved <span class="date"></span> from https://bayesian-ml.netlify.app/
 
-M. H. Tessler (in prep). *Bayesian data analysis: An introduction using probabilistic programs*. Retrieved <span class="date"></span> from https://mhtess.github.io/bdappl/
+---
+This was written by me, Joao Lucas Nina Matos, you can read more about me on my [website](https://joao-lucas.com). Additionally, much credit must also be given to Younesse Kaddar, who acted as my tutor for this project; a truly great one at that. He also has [his own website](https://younesse.net).
+
+You can also find the repository for this project [on github](https://github.com/JoaoNM/Bayesian-ML).
 
 # Useful References
 
-## WebPPL support and packages
-
-- [webppl.org](http://webppl.org): An online editor for WebPPL
+- [Webppl.org](http://webppl.org): online editor for WebPPL
 - [WebPPL documentation](http://webppl.readthedocs.io/en/master/)
 - [WebPPL dev Google Group](https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!forum/webppl-dev): Public forum for discussing issues with WebPPL
 - [WebPPL-viz](http://probmods.github.io/webppl-viz/): A summary of the vizualization options in WebPPL
-- [RWebPPL](https://github.com/mhtess/rwebppl): If you would rather use WebPPL within R
+- [RWebPPL](https://github.com/mhtess/rwebppl): use WebPPL with R
 - WebPPL [packages](http://webppl.readthedocs.io/en/dev/packages.html) (e.g. csv, json, fs).
-- [A WebPPL package with useful BDA helper functions](https://github.com/mhtess/webppl-bda)
-
-## Basic WebPPL tutorials
-
-- [WebPPL intro from DIPPL](http://dippl.org/chapters/02-webppl.html).
-- [WebPPL intro from AgentModels](http://agentmodels.org/chapters/2-webppl.html).
-
-## Bayesian Data Analysis (using WebPPL)
-
-- [Probabilities and Bayes Rule in WebPPL](http://www.problang.org/chapters/app-01-probability.html) by Michael Franke
-- [Comparing methods for computing Bayes Factors](http://michael-franke.github.io/statistics,/modeling/2017/07/07/BF_computation.html) by Michael Franke
+- [Bayesian Data Analysis using Probabilistic Programs](https://mhtess.github.io/bdappl/) 
 - [BDA of Bayesian language models](http://www.problang.org/chapters/app-04-BDA.html)
-- [Old BDA course syllabus](http://web.stanford.edu/class/psych201s/) by MH Tessler
-
-## Other WebPPL applications
-
 - [Probabilistic Models of Cognition](http://probmods.org/): An introduction to computational cognitive science and the probabilistic programming language WebPPL
 - [Probabilistic Language Understanding](http://problang.org): An introduction to probabilistic models of language (in particular, the Rational Speech Act theory)
-- [Modeling Agents with Probabilistic Programs](http://agentmodels.org): An introduction to formal models of rational agents using WebPPL
-- [Forest](http://forestdb.org): A Repository for probabilistic models
-
-## Great textbooks on Bayesian Data Analysis
-
-- [Doing Bayesian Data Analysis](https://sites.google.com/site/doingbayesiandataanalysis/) (Kruschke)
-- [Bayesian Data Analysis](http://www.stat.columbia.edu/~gelman/book/) (Gelman)
-- [Bayesian Cognitive Modeling](https://bayesmodels.com) (Lee & Wagenmakers)
